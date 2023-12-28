@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34221.43
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{FE9E734B-FEEF-45A5-95B7-A805F80C1683}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Api", "Api", "{C9153770-1ED3-41D6-9D72-3500334174F1}"
+	ProjectSection(SolutionItems) = preProject
+		Dockerfile = Dockerfile
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HospitalManagement.Api", "HospitalManagement.Api\HospitalManagement.Api.csproj", "{5B75C687-84D9-44F2-8ACE-CAB17956120D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5B75C687-84D9-44F2-8ACE-CAB17956120D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B75C687-84D9-44F2-8ACE-CAB17956120D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5B75C687-84D9-44F2-8ACE-CAB17956120D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5B75C687-84D9-44F2-8ACE-CAB17956120D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{C9153770-1ED3-41D6-9D72-3500334174F1} = {FE9E734B-FEEF-45A5-95B7-A805F80C1683}
+		{5B75C687-84D9-44F2-8ACE-CAB17956120D} = {C9153770-1ED3-41D6-9D72-3500334174F1}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {51A78A20-BEEA-4CF4-BB63-5158A44AACD0}
+	EndGlobalSection
+EndGlobal
