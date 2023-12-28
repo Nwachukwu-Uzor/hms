@@ -3,12 +3,12 @@ WORKDIR /app
 
 # Expose the port your application will run on
 EXPOSE 80
+EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
 
 # copy all the layers' csproj files into respective folders
-COPY *.sln .
 COPY ["./HospitalManagement.Api/HospitalManagement.Api.csproj", "src/HospitalManagement.Api/"]
 
 # run restore over API project - this pulls restore over the dependent projects as well
