@@ -22,7 +22,7 @@ public class RoleManager : IRoleManager
 
     public async Task AddUserToRole(Guid userId, Guid roleId)
     {
-        var user = await _appUserRepository.GetByIdAsync(userId);
+        var user = await _appUserRepository.GetByUserWithRolesById(userId);
         if (user == null)
         {
             throw new NotFoundException($"{nameof(Domain.Entities.AppUser)}", userId);

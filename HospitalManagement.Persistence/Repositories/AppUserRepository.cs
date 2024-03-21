@@ -12,8 +12,16 @@ public class AppUserRepository : GenericRepository<AppUser>, IAppUserRepository
     }
     public async Task<AppUser> GetByEmail(string email)
     {
-       var appUser = await _context.AppUsers.FirstOrDefaultAsync(user => user.Email.ToLower() == email.ToLower());
+       var appUser = await _context.AppUsers
+            .AsNoTracking().Include(user => user.Roles).FirstOrDefaultAsync(user => user.Email.ToLower() == email.ToLower());
         return appUser;
+    }
+
+    public async Task<AppUser> GetByUserWithRolesById(Guid userId)
+    {
+        var userWithRoles = await _context.AppUsers.Include(user => user.Roles)
+            .FirstOrDefaultAsync(user => user.Id == userId);
+        return userWithRoles;
     }
 
     public async Task<bool> IsEmailUnique(string email)
