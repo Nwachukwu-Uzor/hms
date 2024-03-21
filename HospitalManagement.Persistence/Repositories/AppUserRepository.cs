@@ -19,6 +19,6 @@ public class AppUserRepository : GenericRepository<AppUser>, IAppUserRepository
     public async Task<bool> IsEmailUnique(string email)
     {
         var userWithEmail = await _context.AppUsers.AnyAsync(user => user.Email.ToLower() == email.ToLower());
-        return userWithEmail != null;
+        return userWithEmail == false;
     }
 }

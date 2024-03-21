@@ -12,6 +12,7 @@ public static class InfrastructureServiceRegistration
     {
         services.Configure<PasswordSettings>(configuration.GetSection("PasswordSettings"));
         services.AddScoped<IPasswordService, PasswordService>();
+        services.AddScoped<IRoleManager, RoleManager>();
         return services;
     }
 }

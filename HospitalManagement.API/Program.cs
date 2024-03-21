@@ -1,6 +1,7 @@
 using HospitalManagement.Application;
 using HospitalManagement.Infrastructure;
 using HospitalManagement.Persistence;
+using HR.LeaveManagement.Api.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,7 +12,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddInfrastructureServices(builder.Configuration);
-builder.Services.AddApplicationServices();
+builder.Services.AddApplicationServices(builder.Configuration);
 builder.Services.AddPersistenceServices(builder.Configuration, builder.Environment.IsDevelopment());
 builder.Services.AddCors(options =>
 {
@@ -30,6 +31,7 @@ app.UseSwaggerUI();
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+app.UseMiddleware<ExceptionHandlerMiddleware>();
 
 app.MapControllers();
 
