@@ -8,6 +8,11 @@ namespace HospitalManagement.Persistence.Repositories;
 public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity
 {
     protected readonly AppDbContext _context;
+
+    public GenericRepository(AppDbContext context)
+    {
+        _context = context;
+    }
     public async Task<T> CreateAsync(T entity)
     {
         await _context.AddAsync(entity);

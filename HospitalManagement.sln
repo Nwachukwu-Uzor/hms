@@ -11,15 +11,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastru
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "API", "API", "{06336AA8-3CA5-48B2-823E-D7C1C10F5EB1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HospitalManagement.Application", "HospitalManagement.Application\HospitalManagement.Application.csproj", "{9215A84C-CEAD-4B92-A13F-A2508A72CD62}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HospitalManagement.Application", "HospitalManagement.Application\HospitalManagement.Application.csproj", "{9215A84C-CEAD-4B92-A13F-A2508A72CD62}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HospitalManagement.Persistence", "HospitalManagement.Persistence\HospitalManagement.Persistence.csproj", "{50D26E76-230B-4520-BABC-ED0F560CCBE8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HospitalManagement.Persistence", "HospitalManagement.Persistence\HospitalManagement.Persistence.csproj", "{50D26E76-230B-4520-BABC-ED0F560CCBE8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HospitalManagement.Domain", "HospitalManagement.Domain\HospitalManagement.Domain.csproj", "{4ADEBFC6-F4E4-4CE6-A20D-75921308F7F7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HospitalManagement.Domain", "HospitalManagement.Domain\HospitalManagement.Domain.csproj", "{4ADEBFC6-F4E4-4CE6-A20D-75921308F7F7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HospitalManagement.Infrastructure", "HospitalManagement.Infrastructure\HospitalManagement.Infrastructure.csproj", "{62894B25-7D10-44F9-8F45-591544FFBC04}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HospitalManagement.Infrastructure", "HospitalManagement.Infrastructure\HospitalManagement.Infrastructure.csproj", "{62894B25-7D10-44F9-8F45-591544FFBC04}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HospitalManagement.API", "HospitalManagement.API\HospitalManagement.API.csproj", "{A5FA2837-3FC1-49FC-B879-63AA097E3281}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HospitalManagement.API", "HospitalManagement.API\HospitalManagement.API.csproj", "{A5FA2837-3FC1-49FC-B879-63AA097E3281}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

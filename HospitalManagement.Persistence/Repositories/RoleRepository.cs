@@ -5,5 +5,9 @@ namespace HospitalManagement.Persistence.Repositories
 {
     public class RoleRepository : GenericRepository<Role>, IRoleRepository
     {
+        public RoleRepository(AppDbContext context) : base(context)
+        {
+            
+        }
     }
 }

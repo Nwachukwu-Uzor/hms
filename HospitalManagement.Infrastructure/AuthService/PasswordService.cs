@@ -7,9 +7,8 @@ using System.Text;
 
 namespace HospitalManagement.Infrastructure.AuthService;
 
-public class PasswordService : IPasswordManager
+public class PasswordService : IPasswordService
 {
-    const int KEY_SIZE = 64;
     private HashAlgorithmName hashAlgorithm = HashAlgorithmName.SHA512;
     private readonly PasswordSettings _passwordSettings;
 

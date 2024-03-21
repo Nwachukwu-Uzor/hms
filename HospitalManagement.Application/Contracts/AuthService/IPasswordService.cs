@@ -2,9 +2,9 @@
 
 namespace HospitalManagement.Application.Contracts.AuthService;
 
-public interface IPasswordManager
+public interface IPasswordService
 {
     byte[] GenerateSalt();
     HashOutput HashPassword(string password);
-    Task<bool> ComparePassword(string password, string passwordHash, string salt);
+    bool ComparePassword(string password, string passwordHash, string salt);
 }
