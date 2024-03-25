@@ -30,6 +30,8 @@ namespace HospitalManagement.Persistence
             services.AddScoped<IRoleRepository, RoleRepository>();
             services.AddScoped<IStaffRepository, StaffRepository>();
             services.AddScoped<IAppUserRepository, AppUserRepository>();
+            services.AddScoped<IPatientRepository, PatientRepository>();
+            services.AddScoped<IDepartmentRepository, DepartmentRepository>();
             return services;
         }
     }

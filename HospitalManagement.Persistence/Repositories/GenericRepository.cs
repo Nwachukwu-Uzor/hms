@@ -58,7 +58,6 @@ public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity
     public async Task<T> GetByIdAsync(Guid id)
     {
         var entity = await _context.Set<T>()
-            .AsNoTracking()
             .FirstOrDefaultAsync(item => item.Id == id && !item.IsDeleted);
         return entity;
     }

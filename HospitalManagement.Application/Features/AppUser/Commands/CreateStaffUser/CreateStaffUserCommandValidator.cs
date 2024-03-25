@@ -1,12 +1,12 @@
 ﻿using FluentValidation;
 using HospitalManagement.Application.Contracts.Persistence;
 
-namespace HospitalManagement.Application.Features.AppUser.Commands.CreateAdminUserCommand;
+namespace HospitalManagement.Application.Features.AppUser.Commands.CreateStaffUser;
 
-public class CreateAdminUserCommandValidator : AbstractValidator<CreateAdminUserCommand>
+public class CreateStaffUserCommandValidator : AbstractValidator<CreateStaffUserCommand>
 {
     private readonly IAppUserRepository _appUserRepository;
-    public CreateAdminUserCommandValidator(IAppUserRepository appUserRepository)
+    public CreateStaffUserCommandValidator(IAppUserRepository appUserRepository)
     {
         _appUserRepository = appUserRepository;
 

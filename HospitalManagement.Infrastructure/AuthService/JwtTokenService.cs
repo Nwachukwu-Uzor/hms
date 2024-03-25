@@ -1,5 +1,5 @@
 ﻿using HospitalManagement.Application.Contracts.AuthService;
-using HospitalManagement.Application.Features.AppUser.Commands.LoginUserCommand;
+using HospitalManagement.Application.Features.AppUser.Commands.LoginAdminUser;
 using HospitalManagement.Application.Models.AuthService;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -17,7 +17,7 @@ public class JwtTokenService : IJwtTokenService
     {
          _jwtSettings = options.Value;
     }
-    public string GenerateToken(AppUserDto user)
+    public TokenData GenerateToken(AppUserDto user)
     {
         var claims = new List<Claim>() {
             new Claim("Id", user.Id.ToString()),
@@ -48,6 +48,9 @@ public class JwtTokenService : IJwtTokenService
         var tokenHandler = new JwtSecurityTokenHandler();
         var token = tokenHandler.CreateToken(tokenDescriptor);
         var stringToken = tokenHandler.WriteToken(token);
-        return stringToken;
+        return new TokenData
+        {
+            Token = stringToken,
+        };
     }
 }

@@ -1,8 +1,9 @@
-﻿using HospitalManagement.Application.Features.AppUser.Commands.LoginUserCommand;
+﻿using HospitalManagement.Application.Features.AppUser.Commands.LoginAdminUser;
+using HospitalManagement.Application.Models.AuthService;
 
 namespace HospitalManagement.Application.Contracts.AuthService;
 
 public interface IJwtTokenService
 {
-    string GenerateToken(AppUserDto user);
+    TokenData GenerateToken(AppUserDto user);
 }

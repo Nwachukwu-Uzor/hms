@@ -37,6 +37,12 @@ public class RoleManager : IRoleManager
         {
             user.Roles = new();
         }
+
+        var doesUserAlreadyHaveRole = user.Roles.Any(role => role.Id == roleId);
+        if (doesUserAlreadyHaveRole)
+        {
+            throw new BadRequestException($"User already has the requested role {role.Name}");
+        }
         user.Roles.Add(role);
         await _appUserRepository.UpdateAsync(user);
     }

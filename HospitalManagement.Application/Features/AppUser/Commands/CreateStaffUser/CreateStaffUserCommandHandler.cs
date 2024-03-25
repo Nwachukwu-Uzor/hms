@@ -5,15 +5,15 @@ using HospitalManagement.Application.Models.AuthService;
 using MediatR;
 using Microsoft.Extensions.Options;
 
-namespace HospitalManagement.Application.Features.AppUser.Commands.CreateAdminUserCommand;
+namespace HospitalManagement.Application.Features.AppUser.Commands.CreateStaffUser;
 
-public class CreateAdminUserCommandHandler : IRequestHandler<CreateAdminUserCommand, Unit>
+public class CreateStaffUserCommandHandler : IRequestHandler<CreateStaffUserCommand, Guid>
 {
     private readonly IPasswordService _passwordManager;
     private readonly IAppUserRepository _appUserRepository;
     private readonly IRoleManager _roleManager;
     private readonly RolesId _rolesId;
-    public CreateAdminUserCommandHandler(
+    public CreateStaffUserCommandHandler(
         IPasswordService passwordManager,
         IAppUserRepository appUserRepository,
         IRoleManager roleManager,
@@ -25,9 +25,9 @@ public class CreateAdminUserCommandHandler : IRequestHandler<CreateAdminUserComm
         _roleManager = roleManager;
         _rolesId = option.Value;
     }
-    public async Task<Unit> Handle(CreateAdminUserCommand request, CancellationToken cancellationToken)
+    public async Task<Guid> Handle(CreateStaffUserCommand request, CancellationToken cancellationToken)
     {
-        var validator = new CreateAdminUserCommandValidator(_appUserRepository);
+        var validator = new CreateStaffUserCommandValidator(_appUserRepository);
         var validationResult = await validator.ValidateAsync( request );
         if (validationResult.Errors.Any())
         {
@@ -40,8 +40,8 @@ public class CreateAdminUserCommandHandler : IRequestHandler<CreateAdminUserComm
             Password = passwordHash.Hash,
             Salt = passwordHash.Salt
         };
-        await _appUserRepository.CreateAsync(appUser);
-        await _roleManager.AddUserToRole(appUser.Id, _rolesId.AdminRoleId);
-        return Unit.Value;
+        var user = await _appUserRepository.CreateAsync(appUser);
+        await _roleManager.AddUserToRole(appUser.Id, _rolesId.StaffRoleId);
+        return user.Id;
     }
 }

@@ -2,42 +2,51 @@
 using HospitalManagement.Application.Contracts.AuthService;
 using HospitalManagement.Application.Contracts.Persistence;
 using HospitalManagement.Application.Exceptions;
+using HospitalManagement.Application.Models.AuthService;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.Extensions.Options;
 
-namespace HospitalManagement.Application.Features.AppUser.Commands.LoginUserCommand;
+namespace HospitalManagement.Application.Features.AppUser.Commands.LoginAdminUser;
 
 
-public class LoginUserCommandHandler : IRequestHandler<LoginUserCommand, string>
+public class LoginAdminUserCommandHandler : IRequestHandler<LoginAdminUserCommand, TokenData>
 {
     private readonly IPasswordService _passwordService;
     private readonly IAppUserRepository _appUserRepository;
     private readonly IMapper _mapper;
     private readonly IJwtTokenService _jwtTokenService;
-    public LoginUserCommandHandler(
+    private readonly RolesId _rolesId;
+    public LoginAdminUserCommandHandler(
         IPasswordService passwordService, 
         IAppUserRepository appUserRepository, 
         IMapper mapper, 
-        IJwtTokenService jwtTokenService
+        IJwtTokenService jwtTokenService,
+        IOptions<RolesId> rolesOptions
     )
     {
         _passwordService = passwordService;
         _appUserRepository = appUserRepository;
         _mapper = mapper;
         _jwtTokenService = jwtTokenService;
+        _rolesId = rolesOptions.Value;
     }
 
-    public async Task<string> Handle(LoginUserCommand request, CancellationToken cancellationToken)
+    public async Task<TokenData> Handle(LoginAdminUserCommand request, CancellationToken cancellationToken)
     {
         var user = await _appUserRepository.GetByEmail(request.Email);
         if(user == null)
         {
             throw new BadRequestException("Invalid user credentials");
         }
+
+        // Check if the user is an admin user
+        var isUserAnAdmin = user.Roles.Any(role => role.Id == _rolesId.AdminRoleId);
+
+        if (!isUserAnAdmin)
+        {
+            throw new BadRequestException("Invalid user credentials");
+        }
+
         var isPasswordValid = _passwordService.ComparePassword(request.Password, user.Password, user.Salt);
         if (!isPasswordValid)
         {

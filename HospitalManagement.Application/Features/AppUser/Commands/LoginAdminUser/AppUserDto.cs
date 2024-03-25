@@ -1,11 +1,6 @@
 ﻿using HospitalManagement.Application.Features.Roles.Queries.GetAllRolesQuery;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace HospitalManagement.Application.Features.AppUser.Commands.LoginUserCommand
+namespace HospitalManagement.Application.Features.AppUser.Commands.LoginAdminUser
 {
     public class AppUserDto
     {

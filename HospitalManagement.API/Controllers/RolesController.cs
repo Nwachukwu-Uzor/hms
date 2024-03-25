@@ -1,4 +1,5 @@
-﻿using HospitalManagement.Application.Features.Roles.Queries.GetAllRolesQuery;
+﻿using HospitalManagement.API.Helpers;
+using HospitalManagement.Application.Features.Roles.Queries.GetAllRolesQuery;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -19,7 +20,7 @@ namespace HospitalManagement.API.Controllers
         public async Task<IActionResult> GetAllRoles()
         {
             var roles = await _mediator.Send(new GetAllRolesQuery());
-            return Ok(roles);
+            return Ok(APIResponseGenerator.GenerateSuceessResponse(roles));
         }
     }
 }

@@ -1,5 +1,7 @@
 ﻿using HospitalManagement.Application.Contracts.AuthService;
+using HospitalManagement.Application.Contracts.IDGenerator;
 using HospitalManagement.Application.Models.AuthService;
+using HospitalManagement.Application.Models.IDGenerator;
 using HospitalManagement.Infrastructure.AuthService;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -12,9 +14,11 @@ public static class InfrastructureServiceRegistration
     {
         services.Configure<PasswordSettings>(configuration.GetSection("PasswordSettings"));
         services.Configure<JwtSettings>(configuration.GetSection("Jwt"));
+        services.Configure<IDSettings>(configuration.GetSection("IDSettings"));
         services.AddScoped<IPasswordService, PasswordService>();
         services.AddScoped<IRoleManager, RoleManager>();
         services.AddScoped<IJwtTokenService, JwtTokenService>();
+        services.AddScoped<IIDGenerator, IDGenerator.IDGenerator>();
         return services;
     }
 }
