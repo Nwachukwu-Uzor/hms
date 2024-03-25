@@ -1,8 +1,6 @@
-﻿using HospitalManagement.Domain.Common;
+﻿namespace HospitalManagement.Application.Features.Patient.Commands.CompletePatientDetails;
 
-namespace HospitalManagement.Domain.Entities;
-
-public class Patient : BaseEntity
+public class CompletePatientDetailsCommand
 {
     public string PatientID { get; set; }
     public string FirstName { get; set; }
@@ -14,5 +12,4 @@ public class Patient : BaseEntity
     public string BloodGroup { get; set; }
     public string PhoneNumber { get; set; }
     public string Country { get; set; }
-    public AppUser AppUser { get; set; }
 }
