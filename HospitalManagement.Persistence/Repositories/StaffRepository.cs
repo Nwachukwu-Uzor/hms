@@ -21,7 +21,7 @@ public class StaffRepository : GenericRepository<Staff>, IStaffRepository
     {
         var staff = await _context.Staffs
             .Include(st => st.AppUser).Include(st => st.AppUser.Roles)
-            .Include(st => st.Department)
+            .Include(st => st.Job.Department)
             .FirstOrDefaultAsync(staff => staff.StaffID == staffID);
         return staff;
     }

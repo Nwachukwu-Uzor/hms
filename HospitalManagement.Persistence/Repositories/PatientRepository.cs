@@ -21,7 +21,10 @@ public class PatientRepository : GenericRepository<Patient>, IPatientRepository
 
     public async Task<Patient> GetPatientByPatientID(string patientID)
     {
-        var patient = await _context.Patients.FirstOrDefaultAsync(patient => patient.PatientID == patientID);
+        var patient = await _context.Patients
+            .Include(patient => patient.AppUser)
+            .Include(patient => patient.AppUser.Roles)
+            .FirstOrDefaultAsync(patient => patient.PatientID == patientID);
         return patient;
     }
 }

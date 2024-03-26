@@ -11,14 +11,14 @@ public class CompletePatientDetailsCommandHandler : IRequestHandler<CompletePati
 {
     private readonly IMapper _mapper;
     private readonly IPatientRepository _patientRepository;
-    private readonly IDepartmentRepository _departmentRepository;
+    private readonly IJobRepository _departmentRepository;
     private readonly IAppUserRepository _appUserRepository;
     private readonly IIDGenerator _idGenerator;
 
     public CompletePatientDetailsCommandHandler(
         IMapper mapper,
         IPatientRepository patientRepository,
-        IDepartmentRepository departmentRepository,
+        IJobRepository departmentRepository,
         IAppUserRepository appUserRepository,
         IIDGenerator idGenerator
     )

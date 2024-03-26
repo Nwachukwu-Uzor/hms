@@ -11,10 +11,10 @@ namespace HospitalManagement.Application.Features.Department.Queries.GetAllDepar
 {
     public class GetAllDepartmentsQueryHandler : IRequestHandler<GetAllDepartmentsQuery, List<DepartmentDto>>
     {
-        private readonly IDepartmentRepository _departmentRepository;
+        private readonly IJobRepository _departmentRepository;
         private readonly IMapper _mapper;
 
-        public GetAllDepartmentsQueryHandler(IDepartmentRepository departmentRepository, IMapper mapper)
+        public GetAllDepartmentsQueryHandler(IJobRepository departmentRepository, IMapper mapper)
         {
             _departmentRepository = departmentRepository;
             _mapper = mapper;

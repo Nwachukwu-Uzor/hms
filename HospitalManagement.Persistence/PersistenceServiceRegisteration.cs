@@ -5,34 +5,33 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace HospitalManagement.Persistence
+namespace HospitalManagement.Persistence;
+
+public static class PersistenceServiceRegisteration
 {
-    public static class PersistenceServiceRegisteration
+    public static IServiceCollection AddPersistenceServices(this IServiceCollection services, IConfiguration configuration, bool isDevelopment)
     {
-        public static IServiceCollection AddPersistenceServices(this IServiceCollection services, IConfiguration configuration, bool isDevelopment)
+        if (isDevelopment)
         {
-            if (isDevelopment)
+            services.AddDbContext<AppDbContext>(options =>
             {
-                services.AddDbContext<AppDbContext>(options =>
-                {
-                    options.UseNpgsql(configuration.GetConnectionString("Development"));
-                });
-            }
-            else
-            {
-                services.AddDbContext<AppDbContext>(options =>
-                {
-                    options.UseNpgsql(configuration.GetConnectionString("Production"));
-                });
-            }
-            services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
-            services.AddScoped<IJobRepository, JobRepository>();
-            services.AddScoped<IRoleRepository, RoleRepository>();
-            services.AddScoped<IStaffRepository, StaffRepository>();
-            services.AddScoped<IAppUserRepository, AppUserRepository>();
-            services.AddScoped<IPatientRepository, PatientRepository>();
-            services.AddScoped<IDepartmentRepository, DepartmentRepository>();
-            return services;
+                options.UseNpgsql(configuration.GetConnectionString("Development"));
+            });
         }
+        else
+        {
+            services.AddDbContext<AppDbContext>(options =>
+            {
+                options.UseNpgsql(configuration.GetConnectionString("Production"));
+            });
+        }
+        services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+        services.AddScoped<IJobRepository, JobRepository>();
+        services.AddScoped<IRoleRepository, RoleRepository>();
+        services.AddScoped<IStaffRepository, StaffRepository>();
+        services.AddScoped<IAppUserRepository, AppUserRepository>();
+        services.AddScoped<IPatientRepository, PatientRepository>();
+        services.AddScoped<IDepartmentRepository, DepartmentRepository>();
+        return services;
     }
 }

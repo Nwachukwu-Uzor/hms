@@ -5,5 +5,6 @@ namespace HospitalManagement.Domain.Entities;
 public class Job : BaseEntity
 {
     public string Title { get; set; }
-    public List<Department> Departments { get; set; }
+    public Guid DepartmentId { get; set; }
+    public Department Department { get; set; }
 }

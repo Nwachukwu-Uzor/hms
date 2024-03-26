@@ -11,21 +11,21 @@ public class CompletePatientDetailsCommandHandler : IRequestHandler<AddStaffComm
 {
     private readonly IMapper _mapper;
     private readonly IStaffRepository _staffRepository;
-    private readonly IDepartmentRepository _departmentRepository;
+    private readonly IJobRepository _jobRepository;
     private readonly IAppUserRepository _appUserRepository;
     private readonly IIDGenerator _idGenerator;
 
     public CompletePatientDetailsCommandHandler(
         IMapper mapper,
         IStaffRepository staffRepository,
-        IDepartmentRepository departmentRepository,
+        IJobRepository jobRepository,
         IAppUserRepository appUserRepository,
         IIDGenerator idGenerator
     )
     {
         _mapper = mapper;
         _staffRepository = staffRepository;
-        _departmentRepository = departmentRepository;
+        _jobRepository = jobRepository;
         _appUserRepository = appUserRepository;
         _idGenerator = idGenerator;
     }
@@ -45,11 +45,11 @@ public class CompletePatientDetailsCommandHandler : IRequestHandler<AddStaffComm
             throw new NotFoundException(nameof(Domain.Entities.AppUser), request.AppUserId);
         }
 
-        var department = await _departmentRepository.GetByIdAsync(request.DepartmentId);
+        var job = await _jobRepository.GetByIdAsync(request.JobId);
 
-        if (department == null)
+        if (job == null)
         {
-            throw new NotFoundException(nameof(Domain.Entities.Department), request.DepartmentId);
+            throw new NotFoundException(nameof(Domain.Entities.Job), request.JobId);
         }
 
         // START: Handles when the app user is already assigned to a staff
@@ -62,7 +62,7 @@ public class CompletePatientDetailsCommandHandler : IRequestHandler<AddStaffComm
         // END
 
         var staff = _mapper.Map<Domain.Entities.Staff>(request);
-        staff.Department = department;
+        staff.Job = job;
         staff.AppUser = appUser;
         var staffId = await _idGenerator.GenerateStaffIDNumber();
         staff.StaffID = staffId;

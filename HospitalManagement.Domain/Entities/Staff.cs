@@ -10,7 +10,6 @@ public class Staff : BaseEntity
     public DateTime DateOfBirth { get; set; }
     public string Address { get; set; }
     public AppUser AppUser { get; set; }
-    public Department Department { get; set; }
-    // public Job Job { get; set; }
+    public Job Job { get; set; }
     public string StaffID { get; set; }
 }

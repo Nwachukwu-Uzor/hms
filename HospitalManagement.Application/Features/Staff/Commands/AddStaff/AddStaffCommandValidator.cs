@@ -17,12 +17,12 @@ public class AddStaffCommandValidator : AbstractValidator<AddStaffCommand>
 
         RuleFor(p => p.DateOfBirth).NotEmpty()
             .NotNull().WithMessage("{PropertyName must not be empty}")
-            .GreaterThanOrEqualTo(DateTime.Now);
+            .LessThanOrEqualTo(DateTime.Now);
         
         RuleFor(p => p.AppUserId).NotEmpty()
             .NotNull().WithMessage("{PropertyName must not be empty}"); 
         
-        RuleFor(p => p.DepartmentId).NotEmpty()
+        RuleFor(p => p.JobId).NotEmpty()
             .NotNull().WithMessage("{PropertyName must not be empty}");      
     }
 }
