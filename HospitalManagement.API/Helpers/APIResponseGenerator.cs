@@ -4,7 +4,7 @@ namespace HospitalManagement.API.Helpers;
 
 public static class APIResponseGenerator
 {
-    public static ApiResponseType<T> GenerateSuceessResponse<T>(T response, string message="")
+    public static ApiResponseType<T> GenerateSuccessResponse<T>(T response, string message="")
     {
         return new ApiResponseType<T>
         {

@@ -1,5 +1,4 @@
 ﻿using HospitalManagement.Application.Features.AppUser.Commands.LoginAdminUser;
-using HospitalManagement.Application.Features.Department.Queries.GetAllDepartmentsQuery;
 using HospitalManagement.Application.Features.Job.DTOs;
 
 namespace HospitalManagement.Application.Features.Staff.Queries.GetStaffByStaffId;

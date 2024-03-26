@@ -38,21 +38,21 @@ namespace HospitalManagement.API.Controllers
         public async Task<IActionResult> LoginAdminUser(LoginAdminUserCommand command)
         {
             var response = await _mediator.Send(command);
-            return Ok(APIResponseGenerator.GenerateSuceessResponse(response, "Login successful"));
+            return Ok(APIResponseGenerator.GenerateSuccessResponse(response, "Login successful"));
         }
         
         [HttpPost($"{nameof(LoginPatientUser)}")]
         public async Task<IActionResult> LoginPatientUser(LoginPatientUserCommand command)
         {
             var response = await _mediator.Send(command);
-            return Ok(APIResponseGenerator.GenerateSuceessResponse(response, "Login successful"));
+            return Ok(APIResponseGenerator.GenerateSuccessResponse(response, "Login successful"));
         }
 
         [HttpPut(nameof(MakeStaffAdminUser))]
         public async Task<IActionResult> MakeStaffAdminUser(MakeStaffAdminUserCommand command)
         {
             var response = await _mediator.Send(command);
-            return Ok(APIResponseGenerator.GenerateSuceessResponse(response, "Staff role updated successfully"));
+            return Ok(APIResponseGenerator.GenerateSuccessResponse(response, "Staff role updated successfully"));
         }
     }
 }   

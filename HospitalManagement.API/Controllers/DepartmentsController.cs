@@ -1,4 +1,5 @@
 ﻿using HospitalManagement.API.Helpers;
+using HospitalManagement.Application.Features.Department;
 using HospitalManagement.Application.Features.Department.Queries.GetAllDepartmentsQuery;
 using MediatR;
 using Microsoft.AspNetCore.Http;
@@ -21,7 +22,14 @@ namespace HospitalManagement.API.Controllers
         public async Task<IActionResult> GetAll()
         {
             var response = await _sender.Send(new GetAllDepartmentsQuery());
-            return Ok(APIResponseGenerator.GenerateSuceessResponse(response));
+            return Ok(APIResponseGenerator.GenerateSuccessResponse(response));
+        }
+
+        [HttpGet(nameof(GetAllJobsByDepartmentId) + "/{departmentId:Guid}")]
+        public async Task<IActionResult> GetAllJobsByDepartmentId(Guid departmentId)
+        {
+            var response = await _sender.Send(new GetAllJobsByDepartmentIdQuery(departmentId));
+            return Ok(APIResponseGenerator.GenerateSuccessResponse(response));
         }
     }
 }

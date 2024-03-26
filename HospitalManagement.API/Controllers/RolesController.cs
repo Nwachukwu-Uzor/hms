@@ -20,7 +20,7 @@ namespace HospitalManagement.API.Controllers
         public async Task<IActionResult> GetAllRoles()
         {
             var roles = await _mediator.Send(new GetAllRolesQuery());
-            return Ok(APIResponseGenerator.GenerateSuceessResponse(roles));
+            return Ok(APIResponseGenerator.GenerateSuccessResponse(roles));
         }
     }
 }

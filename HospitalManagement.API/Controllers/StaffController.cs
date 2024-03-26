@@ -21,7 +21,7 @@ namespace HospitalManagement.API.Controllers
         public async Task<IActionResult> AddStaff(AddStaffCommand request)
         {
             var response = await _sender.Send(request);
-            return Ok(APIResponseGenerator.GenerateSuceessResponse(response));
+            return Ok(APIResponseGenerator.GenerateSuccessResponse(response));
         }
 
         [HttpGet($"{nameof(GetStaffByStaffId)}" + "/{staffId}")]
