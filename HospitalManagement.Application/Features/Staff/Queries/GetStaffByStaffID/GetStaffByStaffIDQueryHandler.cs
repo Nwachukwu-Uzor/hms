@@ -1,10 +1,9 @@
 ﻿using AutoMapper;
 using HospitalManagement.Application.Contracts.Persistence;
 using HospitalManagement.Application.Exceptions;
-using HospitalManagement.Application.Features.Staff.Queries.GetStaffByStaffId;
 using MediatR;
 
-namespace HospitalManagement.Application.Features.Staff.Queries.GetStaffByStaffID;
+namespace HospitalManagement.Application.Features.Staff;
 
 public class GetStaffByStaffIDQueryHandler : IRequestHandler<GetStaffByStaffIdQuery, StaffDto>
 {

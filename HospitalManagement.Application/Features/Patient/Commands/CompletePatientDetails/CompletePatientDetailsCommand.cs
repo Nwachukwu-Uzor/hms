@@ -1,7 +1,7 @@
 ﻿using HospitalManagement.Application.Features.Patient.DTOs;
 using MediatR;
 
-namespace HospitalManagement.Application.Features.Patient.Commands.CompletePatientDetails;
+namespace HospitalManagement.Application.Features.Patient;
 
 public class CompletePatientDetailsCommand : IRequest<PatientDto>
 {

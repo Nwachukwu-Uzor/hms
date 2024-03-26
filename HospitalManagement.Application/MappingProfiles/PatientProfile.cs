@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using HospitalManagement.Application.Features.Patient.Commands.CompletePatientDetails;
+using HospitalManagement.Application.Features.Patient;
 using HospitalManagement.Application.Features.Patient.DTOs;
 
 namespace HospitalManagement.Application.MappingProfiles;

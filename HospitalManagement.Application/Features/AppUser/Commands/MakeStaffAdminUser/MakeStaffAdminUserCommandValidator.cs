@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 using HospitalManagement.Application.Models.IDGenerator;
 
-namespace HospitalManagement.Application.Features.AppUser.Commands.MakeStaffAdminUser;
+namespace HospitalManagement.Application.Features.AppUser;
 
 public class MakeStaffAdminUserCommandValidator : AbstractValidator<MakeStaffAdminUserCommand>
 {

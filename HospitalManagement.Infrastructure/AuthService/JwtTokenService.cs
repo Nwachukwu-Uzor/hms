@@ -1,5 +1,5 @@
 ﻿using HospitalManagement.Application.Contracts.AuthService;
-using HospitalManagement.Application.Features.AppUser.Commands.LoginAdminUser;
+using HospitalManagement.Application.Features.AppUser;
 using HospitalManagement.Application.Models.AuthService;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;

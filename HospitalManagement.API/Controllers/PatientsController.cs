@@ -1,6 +1,5 @@
 ﻿using HospitalManagement.API.Helpers;
-using HospitalManagement.Application.Features.Patient.Commands.CompletePatientDetails;
-using HospitalManagement.Application.Features.Patient.Queries.GetPatientByPatientID;
+using HospitalManagement.Application.Features.Patient;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

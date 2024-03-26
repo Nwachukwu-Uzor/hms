@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace HospitalManagement.Application.Features.Department.Queries.GetAllDepartmentsQuery;
+namespace HospitalManagement.Application.Features.Department;
 
 public class GetAllDepartmentsQuery : IRequest<List<DepartmentDto>>
 {

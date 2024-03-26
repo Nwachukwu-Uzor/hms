@@ -1,11 +1,6 @@
 ﻿using HospitalManagement.API.Helpers;
-using HospitalManagement.Application.Features.AppUser.Commands.CreatePatientUser;
-using HospitalManagement.Application.Features.AppUser.Commands.CreateStaffUser;
-using HospitalManagement.Application.Features.AppUser.Commands.LoginAdminUser;
-using HospitalManagement.Application.Features.AppUser.Commands.LoginPatientUser;
-using HospitalManagement.Application.Features.AppUser.Commands.MakeStaffAdminUser;
+using HospitalManagement.Application.Features.AppUser;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HospitalManagement.API.Controllers
@@ -35,7 +30,7 @@ namespace HospitalManagement.API.Controllers
         }
 
         [HttpPost($"{nameof(LoginAdminUser)}")]
-        public async Task<IActionResult> LoginAdminUser(LoginAdminUserCommand command)
+        public async Task<IActionResult> LoginAdminUser(LoginStaffUserCommand command)
         {
             var response = await _mediator.Send(command);
             return Ok(APIResponseGenerator.GenerateSuccessResponse(response, "Login successful"));

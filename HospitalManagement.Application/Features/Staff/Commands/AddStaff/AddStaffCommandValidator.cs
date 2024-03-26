@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace HospitalManagement.Application.Features.Staff.Commands.AddStaff;
+namespace HospitalManagement.Application.Features.Staff;
 
 public class AddStaffCommandValidator : AbstractValidator<AddStaffCommand>
 {

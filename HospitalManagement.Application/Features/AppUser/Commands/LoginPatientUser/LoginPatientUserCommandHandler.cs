@@ -2,12 +2,11 @@
 using HospitalManagement.Application.Contracts.AuthService;
 using HospitalManagement.Application.Contracts.Persistence;
 using HospitalManagement.Application.Exceptions;
-using HospitalManagement.Application.Features.AppUser.Commands.LoginAdminUser;
 using HospitalManagement.Application.Models.AuthService;
 using MediatR;
 using Microsoft.Extensions.Options;
 
-namespace HospitalManagement.Application.Features.AppUser.Commands.LoginPatientUser;
+namespace HospitalManagement.Application.Features.AppUser;
 
 public class LoginPatientUserCommandHandler : IRequestHandler<LoginPatientUserCommand, TokenData>
 {

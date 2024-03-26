@@ -4,13 +4,8 @@ using HospitalManagement.Application.Exceptions;
 using HospitalManagement.Application.Models.AuthService;
 using MediatR;
 using Microsoft.Extensions.Options;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace HospitalManagement.Application.Features.AppUser.Commands.CreatePatientUser
+namespace HospitalManagement.Application.Features.AppUser
 {
     public class CreatePatientUserCommandHandler : IRequestHandler<CreatePatientUserCommand, Guid>
     {

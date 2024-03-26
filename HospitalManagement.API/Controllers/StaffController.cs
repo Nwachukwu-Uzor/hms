@@ -1,6 +1,5 @@
 ﻿using HospitalManagement.API.Helpers;
-using HospitalManagement.Application.Features.Staff.Commands.AddStaff;
-using HospitalManagement.Application.Features.Staff.Queries.GetStaffByStaffID;
+using HospitalManagement.Application.Features.Staff;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 

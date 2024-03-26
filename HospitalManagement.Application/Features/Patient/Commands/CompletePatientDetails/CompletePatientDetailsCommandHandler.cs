@@ -5,7 +5,7 @@ using HospitalManagement.Application.Exceptions;
 using HospitalManagement.Application.Features.Patient.DTOs;
 using MediatR;
 
-namespace HospitalManagement.Application.Features.Patient.Commands.CompletePatientDetails;
+namespace HospitalManagement.Application.Features.Patient;
 
 public class CompletePatientDetailsCommandHandler : IRequestHandler<CompletePatientDetailsCommand, PatientDto>
 {

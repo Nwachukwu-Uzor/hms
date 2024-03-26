@@ -1,4 +1,4 @@
-﻿using HospitalManagement.Application.Features.Department.Queries.GetAllDepartmentsQuery;
+﻿using HospitalManagement.Application.Features.Department;
 
 namespace HospitalManagement.Application.Features.Job.DTOs;
 

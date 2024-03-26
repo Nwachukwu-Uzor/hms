@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace HospitalManagement.Application.Features.AppUser.Commands.CreateStaffUser;
+namespace HospitalManagement.Application.Features.AppUser;
 
 public record CreateStaffUserCommand : IRequest<Guid>
 {

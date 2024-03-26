@@ -1,4 +1,4 @@
-﻿namespace HospitalManagement.Application.Features.Roles.Queries.GetAllRolesQuery;
+﻿namespace HospitalManagement.Application.Features.Roles;
 
 public class RoleDto
 {

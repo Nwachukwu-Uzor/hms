@@ -1,7 +1,7 @@
 ﻿using HospitalManagement.Application.Models.AuthService;
 using MediatR;
 
-namespace HospitalManagement.Application.Features.AppUser.Commands.LoginPatientUser;
+namespace HospitalManagement.Application.Features.AppUser;
 
 public class LoginPatientUserCommand : IRequest<TokenData>
 {

@@ -1,6 +1,5 @@
 ﻿using HospitalManagement.API.Helpers;
 using HospitalManagement.Application.Features.Department;
-using HospitalManagement.Application.Features.Department.Queries.GetAllDepartmentsQuery;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

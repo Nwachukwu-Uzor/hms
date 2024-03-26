@@ -1,6 +1,5 @@
-﻿using HospitalManagement.Application.Features.Staff.Queries.GetStaffByStaffId;
-using MediatR;
+﻿using MediatR;
 
-namespace HospitalManagement.Application.Features.Staff.Queries.GetStaffByStaffID;
+namespace HospitalManagement.Application.Features.Staff;
 
 public record GetStaffByStaffIdQuery(string StaffID) : IRequest<StaffDto>;

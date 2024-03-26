@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace HospitalManagement.Application.Features.Patient.Commands.CompletePatientDetails;
+namespace HospitalManagement.Application.Features.Patient;
 
 public class CompletePatientDetailsCommandValidator : AbstractValidator<CompletePatientDetailsCommand>
 {

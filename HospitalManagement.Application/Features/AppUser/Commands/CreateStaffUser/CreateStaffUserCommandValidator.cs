@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 using HospitalManagement.Application.Contracts.Persistence;
 
-namespace HospitalManagement.Application.Features.AppUser.Commands.CreateStaffUser;
+namespace HospitalManagement.Application.Features.AppUser;
 
 public class CreateStaffUserCommandValidator : AbstractValidator<CreateStaffUserCommand>
 {

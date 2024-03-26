@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace HospitalManagement.Application.Features.AppUser.Commands.CreatePatientUser;
+namespace HospitalManagement.Application.Features.AppUser;
 
 public class CreatePatientUserCommand : IRequest<Guid>
 {

@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using HospitalManagement.Application.Features.AppUser.Commands.LoginAdminUser;
+using HospitalManagement.Application.Features.AppUser;
 using HospitalManagement.Domain.Entities;
 
 namespace HospitalManagement.Application.MappingProfiles;

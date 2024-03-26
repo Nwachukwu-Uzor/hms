@@ -2,13 +2,13 @@
 using HospitalManagement.Application.Contracts.AuthService;
 using HospitalManagement.Application.Contracts.Persistence;
 using HospitalManagement.Application.Exceptions;
-using HospitalManagement.Application.Features.Staff.Queries.GetStaffByStaffId;
+using HospitalManagement.Application.Features.Staff;
 using HospitalManagement.Application.Models.AuthService;
 using HospitalManagement.Application.Models.IDGenerator;
 using MediatR;
 using Microsoft.Extensions.Options;
 
-namespace HospitalManagement.Application.Features.AppUser.Commands.MakeStaffAdminUser;
+namespace HospitalManagement.Application.Features.AppUser;
 
 public class MakeStaffAdminUserCommandHandler : IRequestHandler<MakeStaffAdminUserCommand, StaffDto>
 {

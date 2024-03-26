@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using HospitalManagement.Application.Features.Department.Queries.GetAllDepartmentsQuery;
+using HospitalManagement.Application.Features.Department;
 using HospitalManagement.Domain.Entities;
 
 namespace HospitalManagement.Application.MappingProfiles;

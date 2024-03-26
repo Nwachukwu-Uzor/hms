@@ -4,7 +4,7 @@ using HospitalManagement.Application.Exceptions;
 using HospitalManagement.Application.Features.Patient.DTOs;
 using MediatR;
 
-namespace HospitalManagement.Application.Features.Patient.Queries.GetPatientByPatientID;
+namespace HospitalManagement.Application.Features.Patient;
 
 public class GetPatientByPatientIDQueryHandler : IRequestHandler<GetPatientByPatientIDQuery, PatientDto>
 {

@@ -5,7 +5,7 @@ using HospitalManagement.Application.Models.AuthService;
 using MediatR;
 using Microsoft.Extensions.Options;
 
-namespace HospitalManagement.Application.Features.AppUser.Commands.CreateStaffUser;
+namespace HospitalManagement.Application.Features.AppUser;
 
 public class CreateStaffUserCommandHandler : IRequestHandler<CreateStaffUserCommand, Guid>
 {

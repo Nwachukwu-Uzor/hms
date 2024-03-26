@@ -6,17 +6,17 @@ using HospitalManagement.Application.Models.AuthService;
 using MediatR;
 using Microsoft.Extensions.Options;
 
-namespace HospitalManagement.Application.Features.AppUser.Commands.LoginAdminUser;
+namespace HospitalManagement.Application.Features.AppUser;
 
 
-public class LoginAdminUserCommandHandler : IRequestHandler<LoginAdminUserCommand, TokenData>
+public class LoginStaffUserCommandHandler : IRequestHandler<LoginStaffUserCommand, TokenData>
 {
     private readonly IPasswordService _passwordService;
     private readonly IAppUserRepository _appUserRepository;
     private readonly IMapper _mapper;
     private readonly IJwtTokenService _jwtTokenService;
     private readonly RolesId _rolesId;
-    public LoginAdminUserCommandHandler(
+    public LoginStaffUserCommandHandler(
         IPasswordService passwordService, 
         IAppUserRepository appUserRepository, 
         IMapper mapper, 
@@ -31,7 +31,7 @@ public class LoginAdminUserCommandHandler : IRequestHandler<LoginAdminUserComman
         _rolesId = rolesOptions.Value;
     }
 
-    public async Task<TokenData> Handle(LoginAdminUserCommand request, CancellationToken cancellationToken)
+    public async Task<TokenData> Handle(LoginStaffUserCommand request, CancellationToken cancellationToken)
     {
         var user = await _appUserRepository.GetByEmail(request.Email);
         if(user == null)
@@ -39,10 +39,10 @@ public class LoginAdminUserCommandHandler : IRequestHandler<LoginAdminUserComman
             throw new BadRequestException("Invalid user credentials");
         }
 
-        // Check if the user is an admin user
-        var isUserAnAdmin = user.Roles.Any(role => role.Id == _rolesId.AdminRoleId);
+        // Check if the user is a staff user
+        var isUserAStaff = user.Roles.Any(role => role.Id == _rolesId.StaffRoleId);
 
-        if (!isUserAnAdmin)
+        if (!isUserAStaff)
         {
             throw new BadRequestException("Invalid user credentials");
         }

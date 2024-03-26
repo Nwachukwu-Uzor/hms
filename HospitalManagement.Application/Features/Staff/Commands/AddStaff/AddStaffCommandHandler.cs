@@ -2,10 +2,9 @@
 using HospitalManagement.Application.Contracts.IDGenerator;
 using HospitalManagement.Application.Contracts.Persistence;
 using HospitalManagement.Application.Exceptions;
-using HospitalManagement.Application.Features.Staff.Queries.GetStaffByStaffId;
 using MediatR;
 
-namespace HospitalManagement.Application.Features.Staff.Commands.AddStaff;
+namespace HospitalManagement.Application.Features.Staff;
 
 public class CompletePatientDetailsCommandHandler : IRequestHandler<AddStaffCommand, StaffDto>
 {

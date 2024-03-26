@@ -1,4 +1,4 @@
-﻿using HospitalManagement.Application.Features.AppUser.Commands.LoginAdminUser;
+﻿using HospitalManagement.Application.Features.AppUser;
 using HospitalManagement.Application.Models.AuthService;
 
 namespace HospitalManagement.Application.Contracts.AuthService;

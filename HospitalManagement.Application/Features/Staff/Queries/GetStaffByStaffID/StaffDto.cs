@@ -1,7 +1,7 @@
-﻿using HospitalManagement.Application.Features.AppUser.Commands.LoginAdminUser;
+﻿using HospitalManagement.Application.Features.AppUser;
 using HospitalManagement.Application.Features.Job.DTOs;
 
-namespace HospitalManagement.Application.Features.Staff.Queries.GetStaffByStaffId;
+namespace HospitalManagement.Application.Features.Staff;
 
 public class StaffDto
 {

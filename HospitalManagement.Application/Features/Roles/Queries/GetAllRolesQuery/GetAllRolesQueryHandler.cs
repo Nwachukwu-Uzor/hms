@@ -2,7 +2,7 @@
 using HospitalManagement.Application.Contracts.Persistence;
 using MediatR;
 
-namespace HospitalManagement.Application.Features.Roles.Queries.GetAllRolesQuery;
+namespace HospitalManagement.Application.Features.Roles;
 
 public class GetAllRolesQueryHandler : IRequestHandler<GetAllRolesQuery, List<RoleDto>>
 {

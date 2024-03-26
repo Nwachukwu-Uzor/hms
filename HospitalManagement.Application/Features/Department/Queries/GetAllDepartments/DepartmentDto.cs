@@ -1,4 +1,4 @@
-﻿namespace HospitalManagement.Application.Features.Department.Queries.GetAllDepartmentsQuery;
+﻿namespace HospitalManagement.Application.Features.Department;
 
 public class DepartmentDto
 {

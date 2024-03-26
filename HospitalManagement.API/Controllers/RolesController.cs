@@ -1,7 +1,6 @@
 ﻿using HospitalManagement.API.Helpers;
-using HospitalManagement.Application.Features.Roles.Queries.GetAllRolesQuery;
+using HospitalManagement.Application.Features.Roles;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HospitalManagement.API.Controllers
