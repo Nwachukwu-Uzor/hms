@@ -1,5 +1,6 @@
 ﻿using HospitalManagement.API.Helpers;
 using HospitalManagement.Application.Features.Patient.Commands.CompletePatientDetails;
+using HospitalManagement.Application.Features.Patient.Queries.GetPatientByPatientID;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -21,6 +22,13 @@ public class PatientsController : ControllerBase
     public async Task<IActionResult> CompletePatientDetails(CompletePatientDetailsCommand command)
     {
         var response = await _sender.Send(command);
+        return Ok(APIResponseGenerator.GenerateSuceessResponse(response));
+    }
+
+    [HttpGet(nameof(GetPatientDetailsByPatientID) + "/{patientID}")]
+    public async Task<IActionResult> GetPatientDetailsByPatientID(string patientID)
+    {
+        var response = await _sender.Send(new GetPatientByPatientIDQuery(patientID));
         return Ok(APIResponseGenerator.GenerateSuceessResponse(response));
     }
 }
