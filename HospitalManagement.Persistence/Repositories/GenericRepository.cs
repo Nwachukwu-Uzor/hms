@@ -16,14 +16,12 @@ public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity
     public async Task<T> CreateAsync(T entity)
     {
         await _context.AddAsync(entity);
-        await _context.SaveChangesAsync();
         return entity;
     }
 
     public async Task<T> DeleteAsync(T entity)
     {
         entity.IsDeleted = true;
-        await _context.SaveChangesAsync();
         return entity;
     }
 
@@ -62,11 +60,10 @@ public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity
         return entity;
     }
 
-    public async Task<T> UpdateAsync(T entity)
+    public T UpdateAsync(T entity)
     {
         _context.Update(entity);
         _context.Entry(entity).State = EntityState.Modified;
-        await _context.SaveChangesAsync();
         return entity;
     }
 }

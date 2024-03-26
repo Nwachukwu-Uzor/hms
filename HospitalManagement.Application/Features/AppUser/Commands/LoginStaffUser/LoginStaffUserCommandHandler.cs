@@ -12,28 +12,27 @@ namespace HospitalManagement.Application.Features.AppUser;
 public class LoginStaffUserCommandHandler : IRequestHandler<LoginStaffUserCommand, TokenData>
 {
     private readonly IPasswordService _passwordService;
-    private readonly IAppUserRepository _appUserRepository;
+    private readonly IUnitOfWork _unitOfWork;
     private readonly IMapper _mapper;
     private readonly IJwtTokenService _jwtTokenService;
     private readonly RolesId _rolesId;
     public LoginStaffUserCommandHandler(
-        IPasswordService passwordService, 
-        IAppUserRepository appUserRepository, 
-        IMapper mapper, 
+        IPasswordService passwordService,
+        IMapper mapper,
         IJwtTokenService jwtTokenService,
-        IOptions<RolesId> rolesOptions
-    )
+        IOptions<RolesId> rolesOptions,
+        IUnitOfWork unitOfWork)
     {
         _passwordService = passwordService;
-        _appUserRepository = appUserRepository;
         _mapper = mapper;
         _jwtTokenService = jwtTokenService;
         _rolesId = rolesOptions.Value;
+        _unitOfWork = unitOfWork;
     }
 
     public async Task<TokenData> Handle(LoginStaffUserCommand request, CancellationToken cancellationToken)
     {
-        var user = await _appUserRepository.GetByEmail(request.Email);
+        var user = await _unitOfWork.AppUserRepository.GetByEmail(request.Email);
         if(user == null)
         {
             throw new BadRequestException("Invalid user credentials");

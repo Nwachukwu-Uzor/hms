@@ -10,24 +10,22 @@ namespace HospitalManagement.Application.Features.Patient;
 public class CompletePatientDetailsCommandHandler : IRequestHandler<CompletePatientDetailsCommand, PatientDto>
 {
     private readonly IMapper _mapper;
-    private readonly IPatientRepository _patientRepository;
-    private readonly IJobRepository _departmentRepository;
     private readonly IAppUserRepository _appUserRepository;
     private readonly IIDGenerator _idGenerator;
+    private readonly IUnitOfWork _unitOfWork;
 
     public CompletePatientDetailsCommandHandler(
         IMapper mapper,
         IPatientRepository patientRepository,
         IJobRepository departmentRepository,
         IAppUserRepository appUserRepository,
-        IIDGenerator idGenerator
-    )
+        IIDGenerator idGenerator,
+        IUnitOfWork unitOfWork)
     {
         _mapper = mapper;
-        _patientRepository = patientRepository;
-        _departmentRepository = departmentRepository;
         _appUserRepository = appUserRepository;
         _idGenerator = idGenerator;
+        _unitOfWork = unitOfWork;
     }
     public async Task<PatientDto> Handle(CompletePatientDetailsCommand request, CancellationToken cancellationToken)
     {
@@ -46,7 +44,7 @@ public class CompletePatientDetailsCommandHandler : IRequestHandler<CompletePati
         }
 
         // START: Handles when the app user is already assigned to a staff
-        var patientForAppUserId = await _patientRepository.GetPatientByAppUserID(request.AppUserId);
+        var patientForAppUserId = await _unitOfWork.PatientRepository.GetPatientByAppUserID(request.AppUserId);
 
         if (patientForAppUserId != null)
         {
@@ -58,8 +56,9 @@ public class CompletePatientDetailsCommandHandler : IRequestHandler<CompletePati
         patient.AppUser = appUser;
         var patientID = await _idGenerator.GeneratePatientIDNumber();
         patient.PatientID = patientID;
-        var response = await _patientRepository.CreateAsync(patient);
+        var response = await _unitOfWork.PatientRepository.CreateAsync(patient);
         var data = _mapper.Map<PatientDto>(response);
+        await _unitOfWork.CompleteAsync();
         return data;
     }
 }

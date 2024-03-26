@@ -11,24 +11,22 @@ namespace HospitalManagement.Infrastructure.AuthService;
 
 public class RoleManager : IRoleManager
 {
-    private readonly IAppUserRepository _appUserRepository;
-    private readonly IRoleRepository _roleRepository;
+    private readonly IUnitOfWork _unitOfWork;
 
-    public RoleManager(IAppUserRepository appUserRepository, IRoleRepository roleRepository)
+    public RoleManager(IUnitOfWork unitOfWork)
     {
-        _appUserRepository = appUserRepository;
-        _roleRepository = roleRepository;
+        _unitOfWork = unitOfWork;
     }
 
     public async Task AddUserToRole(Guid userId, Guid roleId)
     {
-        var user = await _appUserRepository.GetByUserWithRolesById(userId);
+        var user = await _unitOfWork.AppUserRepository.GetByUserWithRolesById(userId);
         if (user == null)
         {
             throw new NotFoundException($"{nameof(Domain.Entities.AppUser)}", userId);
         }
 
-        var role = await _roleRepository.GetByIdAsync(roleId);
+        var role = await _unitOfWork.RoleRepository.GetByIdAsync(roleId);
         if (role == null)
         {
             throw new NotFoundException($"{nameof(Domain.Entities.Role)}", roleId);
@@ -44,7 +42,8 @@ public class RoleManager : IRoleManager
             throw new BadRequestException($"User already has the requested role {role.Name}");
         }
         user.Roles.Add(role);
-        await _appUserRepository.UpdateAsync(user);
+        _unitOfWork.AppUserRepository.UpdateAsync(user);
+        await _unitOfWork.CompleteAsync();
     }
 
     public Task RemoveUserFromRole(Guid userId, Guid roleId)

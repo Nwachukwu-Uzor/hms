@@ -2,6 +2,4 @@
 
 namespace HospitalManagement.Application.Features.Department;
 
-public class GetAllDepartmentsQuery : IRequest<List<DepartmentDto>>
-{
-}
+public record GetAllDepartmentsQuery : IRequest<List<DepartmentDto>>;

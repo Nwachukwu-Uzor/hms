@@ -8,18 +8,18 @@ namespace HospitalManagement.Application.Features.Patient;
 
 public class GetPatientByPatientIDQueryHandler : IRequestHandler<GetPatientByPatientIDQuery, PatientDto>
 {
-    private readonly IPatientRepository _patientRepository;
+    private readonly IUnitOfWork _unitOfWork;
     private readonly IMapper _mapper;
 
-    public GetPatientByPatientIDQueryHandler(IPatientRepository patientRepository, IMapper mapper)
+    public GetPatientByPatientIDQueryHandler(IMapper mapper, IUnitOfWork unitOfWork)
     {
-        _patientRepository = patientRepository;
         _mapper = mapper;
+        _unitOfWork = unitOfWork;
     }
 
     public async Task<PatientDto> Handle(GetPatientByPatientIDQuery request, CancellationToken cancellationToken)
     {
-        var patient = await _patientRepository.GetPatientByPatientID(request.PatientID);
+        var patient = await _unitOfWork.PatientRepository.GetPatientByPatientID(request.PatientID);
         if (patient == null)
         {
             throw new NotFoundException(nameof(Domain.Entities.Patient), request.PatientID);

@@ -7,18 +7,18 @@ namespace HospitalManagement.Application.Features.Staff;
 
 public class GetStaffByStaffIDQueryHandler : IRequestHandler<GetStaffByStaffIdQuery, StaffDto>
 {
-    private readonly IStaffRepository _staffRepository;
+    private readonly IUnitOfWork _unitOfWork;
     private readonly IMapper _mapper;
 
-    public GetStaffByStaffIDQueryHandler(IStaffRepository staffRepository, IMapper mapper)
+    public GetStaffByStaffIDQueryHandler(IMapper mapper, IUnitOfWork unitOfWork)
     {
-        _staffRepository = staffRepository;
         _mapper = mapper;
+        _unitOfWork = unitOfWork;
     }
 
     public async Task<StaffDto> Handle(GetStaffByStaffIdQuery request, CancellationToken cancellationToken)
     {
-        var staff = await _staffRepository.GetStaffByStaffID(request.StaffID);
+        var staff = await _unitOfWork.StaffRepository.GetStaffByStaffID(request.StaffID);
         if (staff == null)
         {
             throw new NotFoundException(nameof(Domain.Entities.Staff), request.StaffID);

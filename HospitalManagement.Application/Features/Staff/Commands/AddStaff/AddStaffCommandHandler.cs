@@ -9,24 +9,20 @@ namespace HospitalManagement.Application.Features.Staff;
 public class CompletePatientDetailsCommandHandler : IRequestHandler<AddStaffCommand, StaffDto>
 {
     private readonly IMapper _mapper;
-    private readonly IStaffRepository _staffRepository;
-    private readonly IJobRepository _jobRepository;
+    private readonly IUnitOfWork _unitOfWork;
     private readonly IAppUserRepository _appUserRepository;
     private readonly IIDGenerator _idGenerator;
 
     public CompletePatientDetailsCommandHandler(
         IMapper mapper,
-        IStaffRepository staffRepository,
-        IJobRepository jobRepository,
         IAppUserRepository appUserRepository,
-        IIDGenerator idGenerator
-    )
+        IIDGenerator idGenerator,
+        IUnitOfWork unitOfWork)
     {
         _mapper = mapper;
-        _staffRepository = staffRepository;
-        _jobRepository = jobRepository;
         _appUserRepository = appUserRepository;
         _idGenerator = idGenerator;
+        _unitOfWork = unitOfWork;
     }
     public async Task<StaffDto> Handle(AddStaffCommand request, CancellationToken cancellationToken)
     {
@@ -44,7 +40,7 @@ public class CompletePatientDetailsCommandHandler : IRequestHandler<AddStaffComm
             throw new NotFoundException(nameof(Domain.Entities.AppUser), request.AppUserId);
         }
 
-        var job = await _jobRepository.GetByIdAsync(request.JobId);
+        var job = await _unitOfWork.JobRepository.GetByIdAsync(request.JobId);
 
         if (job == null)
         {
@@ -52,7 +48,7 @@ public class CompletePatientDetailsCommandHandler : IRequestHandler<AddStaffComm
         }
 
         // START: Handles when the app user is already assigned to a staff
-        var staffForAppUserId = await _staffRepository.GetStaffByAppUserId(request.AppUserId);
+        var staffForAppUserId = await _unitOfWork.StaffRepository.GetStaffByAppUserId(request.AppUserId);
         
         if (staffForAppUserId != null)
         {
@@ -65,8 +61,9 @@ public class CompletePatientDetailsCommandHandler : IRequestHandler<AddStaffComm
         staff.AppUser = appUser;
         var staffId = await _idGenerator.GenerateStaffIDNumber();
         staff.StaffID = staffId;
-        var response = await _staffRepository.CreateAsync(staff);
+        var response = await _unitOfWork.StaffRepository.CreateAsync(staff);
         var data = _mapper.Map<StaffDto>(response);
+        await _unitOfWork.CompleteAsync();
         return data;
     }
 }
