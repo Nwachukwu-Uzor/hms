@@ -2,36 +2,36 @@
 using HospitalManagement.Application.Contracts.IDGenerator;
 using HospitalManagement.Application.Contracts.Persistence;
 using HospitalManagement.Application.Exceptions;
-using HospitalManagement.Application.Features.Staff.Queries.GetStaffByStaffId;
+using HospitalManagement.Application.Features.Patient.DTOs;
 using MediatR;
 
-namespace HospitalManagement.Application.Features.Staff.Commands.AddStaff;
+namespace HospitalManagement.Application.Features.Patient.Commands.CompletePatientDetails;
 
-public class CompletePatientDetailsCommandHandler : IRequestHandler<AddStaffCommand, StaffDto>
+public class CompletePatientDetailsCommandHandler : IRequestHandler<CompletePatientDetailsCommand, PatientDto>
 {
     private readonly IMapper _mapper;
-    private readonly IStaffRepository _staffRepository;
+    private readonly IPatientRepository _patientRepository;
     private readonly IDepartmentRepository _departmentRepository;
     private readonly IAppUserRepository _appUserRepository;
     private readonly IIDGenerator _idGenerator;
 
     public CompletePatientDetailsCommandHandler(
         IMapper mapper,
-        IStaffRepository staffRepository,
+        IPatientRepository patientRepository,
         IDepartmentRepository departmentRepository,
         IAppUserRepository appUserRepository,
         IIDGenerator idGenerator
     )
     {
         _mapper = mapper;
-        _staffRepository = staffRepository;
+        _patientRepository = patientRepository;
         _departmentRepository = departmentRepository;
         _appUserRepository = appUserRepository;
         _idGenerator = idGenerator;
     }
-    public async Task<StaffDto> Handle(AddStaffCommand request, CancellationToken cancellationToken)
+    public async Task<PatientDto> Handle(CompletePatientDetailsCommand request, CancellationToken cancellationToken)
     {
-        var validator = new AddStaffCommandValidator();
+        var validator = new CompletePatientDetailsCommandValidator();
         var validationResult = validator.Validate(request);
         if (validationResult.Errors.Any())
         {
@@ -45,29 +45,21 @@ public class CompletePatientDetailsCommandHandler : IRequestHandler<AddStaffComm
             throw new NotFoundException(nameof(Domain.Entities.AppUser), request.AppUserId);
         }
 
-        var department = await _departmentRepository.GetByIdAsync(request.DepartmentId);
-
-        if (department == null)
-        {
-            throw new NotFoundException(nameof(Domain.Entities.Department), request.DepartmentId);
-        }
-
         // START: Handles when the app user is already assigned to a staff
-        var staffForAppUserId = await _staffRepository.GetStaffByAppUserId(request.AppUserId);
-        
-        if (staffForAppUserId != null)
+        var patientForAppUserId = await _patientRepository.GetPatientByAppUserID(request.AppUserId);
+
+        if (patientForAppUserId != null)
         {
             throw new BadRequestException($"{nameof(Domain.Entities.AppUser)} with key {request.AppUserId} is already mapped to a staff");
         }
         // END
 
-        var staff = _mapper.Map<Domain.Entities.Staff>(request);
-        staff.Department = department;
-        staff.AppUser = appUser;
-        var staffId = await _idGenerator.GenerateStaffIDNumber();
-        staff.StaffID = staffId;
-        var response = await _staffRepository.CreateAsync(staff);
-        var data = _mapper.Map<StaffDto>(response);
+        var patient = _mapper.Map<Domain.Entities.Patient>(request);
+        patient.AppUser = appUser;
+        var patientID = await _idGenerator.GeneratePatientIDNumber();
+        patient.PatientID = patientID;
+        var response = await _patientRepository.CreateAsync(patient);
+        var data = _mapper.Map<PatientDto>(response);
         return data;
     }
 }

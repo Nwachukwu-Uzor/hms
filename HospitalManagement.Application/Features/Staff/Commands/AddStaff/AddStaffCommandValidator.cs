@@ -16,7 +16,8 @@ public class AddStaffCommandValidator : AbstractValidator<AddStaffCommand>
             .MinimumLength(4).WithMessage("{PropertyName} must be at least 4 characters long");
 
         RuleFor(p => p.DateOfBirth).NotEmpty()
-            .NotNull().WithMessage("{PropertyName must not be empty}");
+            .NotNull().WithMessage("{PropertyName must not be empty}")
+            .GreaterThanOrEqualTo(DateTime.Now);
         
         RuleFor(p => p.AppUserId).NotEmpty()
             .NotNull().WithMessage("{PropertyName must not be empty}"); 

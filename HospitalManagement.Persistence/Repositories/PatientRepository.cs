@@ -1,5 +1,6 @@
 ﻿using HospitalManagement.Application.Contracts.Persistence;
 using HospitalManagement.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,9 +15,16 @@ namespace HospitalManagement.Persistence.Repositories
         {
         }
 
-        public Task<Patient> GetPatientByPatientID(string patientID)
+        public async Task<Patient> GetPatientByAppUserID(Guid appUserId)
         {
-            throw new NotImplementedException();
+            var patient = await _context.Patients.FirstOrDefaultAsync(patient => patient.AppUser.Id == appUserId);
+            return patient;
+        }
+
+        public async Task<Patient> GetPatientByPatientID(string patientID)
+        {
+            var patient = await _context.Patients.FirstOrDefaultAsync(patient => patient.PatientID == patientID);
+            return patient;
         }
     }
 }

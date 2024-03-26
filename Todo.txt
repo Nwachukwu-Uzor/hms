@@ -1,0 +1,4 @@
+1. Add an Address entity to replace string address
+2. Seed jobs and tie a job to an employee. The job tied must be a valid job for the employees department
+3. Add country entity to replace string country. Concatenate phone number prefix from the country with supplied phone number
+4. Validate supplied phone number

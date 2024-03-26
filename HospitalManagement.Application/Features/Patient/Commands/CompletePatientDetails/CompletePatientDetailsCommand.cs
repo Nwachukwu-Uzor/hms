@@ -1,8 +1,11 @@
-﻿namespace HospitalManagement.Application.Features.Patient.Commands.CompletePatientDetails;
+﻿using HospitalManagement.Application.Features.Patient.DTOs;
+using MediatR;
 
-public class CompletePatientDetailsCommand
+namespace HospitalManagement.Application.Features.Patient.Commands.CompletePatientDetails;
+
+public class CompletePatientDetailsCommand : IRequest<PatientDto>
 {
-    public string PatientID { get; set; }
+    public Guid AppUserId { get; set; }
     public string FirstName { get; set; }
     public string LastName { get; set; }
     public string MiddleName { get; set; }

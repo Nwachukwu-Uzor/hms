@@ -49,10 +49,16 @@ public class IDGenerator : IIDGenerator
 
         return resultBuilder.ToString();
     }
-    public Task<string> GeneratePatientIDNumber()
+
+    public async Task<string> GeneratePatientIDNumber()
     {
 
-        throw new NotImplementedException();
+        var patientId = $"{_idSettings.PatientIDPrefix}{GenerateRandomString(_idSettings.IDLength)}";
+        while ((await _patientRepository.GetPatientByPatientID(patientId)) != null)
+        {
+            patientId = $"{_idSettings.PatientIDPrefix}{GenerateRandomString(_idSettings.IDLength)}";
+        }
+        return patientId;
     }
 
     public async Task<string> GenerateStaffIDNumber()
