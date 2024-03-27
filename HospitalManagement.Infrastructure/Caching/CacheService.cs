@@ -21,7 +21,6 @@ public class CacheService : ICacheService
         options.SlidingExpiration = unusedExpiryTime;
         var jsonData = JsonSerializer.Serialize(data);
         await _cache.SetStringAsync(key, jsonData, options);
-        throw new NotImplementedException();
     }
 
     public async Task<T> GetRecordAsync<T>(string key)
