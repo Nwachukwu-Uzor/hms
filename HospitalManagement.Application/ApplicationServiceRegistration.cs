@@ -24,10 +24,10 @@ public static class ApplicationServiceRegistration
         {
             o.TokenValidationParameters = new TokenValidationParameters
             {
-                ValidIssuer = configuration["Jwt:Issuer"],
-                ValidAudience = configuration["Jwt:Audience"],
+                ValidIssuer = configuration.GetSection("Jwt:Issuer").Value,
+                ValidAudience = configuration.GetSection("Jwt:Audience").Value,
                 IssuerSigningKey = new SymmetricSecurityKey
-                    (Encoding.UTF8.GetBytes(configuration["Jwt:Key"])),
+                    (Encoding.UTF8.GetBytes(configuration.GetSection("Jwt:Key").Value)),
                 ValidateIssuer = true,
                 ValidateAudience = true,
                 ValidateLifetime = false,

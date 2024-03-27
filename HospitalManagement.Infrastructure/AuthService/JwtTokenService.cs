@@ -41,8 +41,8 @@ public class JwtTokenService : IJwtTokenService
             Issuer = _jwtSettings.Issuer,
             Audience = _jwtSettings.Audience,
             SigningCredentials = new SigningCredentials(
-                new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_jwtSettings.Key)),
-                SecurityAlgorithms.HmacSha512Signature
+                new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtSettings.Key)),
+                SecurityAlgorithms.HmacSha256Signature
              )
         };
         var tokenHandler = new JwtSecurityTokenHandler();
