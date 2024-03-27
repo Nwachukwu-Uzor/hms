@@ -2,6 +2,7 @@
 using HospitalManagement.API.Models;
 using Newtonsoft.Json;
 using System.Net;
+using HospitalManagement.API.Helpers;
 
 namespace HR.LeaveManagement.Api.Middlewares;
 
@@ -68,6 +69,6 @@ public class ExceptionHandlerMiddleware
         var logMessage = JsonConvert.SerializeObject(problem);
         _logger.LogError(logMessage);
         httpContext.Response.StatusCode = (int)statusCode;
-        await httpContext.Response.WriteAsJsonAsync(problem);
+        await httpContext.Response.WriteAsJsonAsync(APIResponseGenerator.GenerateFailureResponse(problem));
     }
 }

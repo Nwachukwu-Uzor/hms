@@ -30,5 +30,12 @@ namespace HospitalManagement.API.Controllers
             var response = await _sender.Send(new GetAllJobsByDepartmentIdQuery(departmentId));
             return Ok(APIResponseGenerator.GenerateSuccessResponse(response));
         }
+
+        [HttpPost(nameof(CreateDepartment))]
+        public async Task<IActionResult> CreateDepartment(CreateNewDepartmentCommand command)
+        {
+            var response = await _sender.Send(command);
+            return Ok(APIResponseGenerator.GenerateSuccessResponse(response));
+        }
     }
 }

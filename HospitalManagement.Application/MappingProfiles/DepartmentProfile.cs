@@ -9,5 +9,6 @@ public class DepartmentProfile : Profile
     public DepartmentProfile()
     {
         CreateMap<DepartmentDto, Department>().ReverseMap();
+        CreateMap<CreateNewDepartmentCommand, Department>().ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name.ToUpper()));
     }
 }
