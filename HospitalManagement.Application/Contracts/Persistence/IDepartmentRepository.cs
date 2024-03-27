@@ -5,4 +5,5 @@ namespace HospitalManagement.Application.Contracts.Persistence;
 
 public interface IDepartmentRepository : IGenericRepository<Department>
 {
+    Task<bool> IsDepartmentNameUnique(string Name);
 }
