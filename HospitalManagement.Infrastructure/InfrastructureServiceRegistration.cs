@@ -1,11 +1,14 @@
 ﻿using HospitalManagement.Application.Contracts.AuthService;
 using HospitalManagement.Application.Contracts.Caching;
+using HospitalManagement.Application.Contracts.EmailService;
 using HospitalManagement.Application.Contracts.IDGenerator;
 using HospitalManagement.Application.Contracts.Logging;
 using HospitalManagement.Application.Models.AuthService;
+using HospitalManagement.Application.Models.EmailService;
 using HospitalManagement.Application.Models.IDGenerator;
 using HospitalManagement.Infrastructure.AuthService;
 using HospitalManagement.Infrastructure.Caching;
+using HospitalManagement.Infrastructure.EmailService;
 using HospitalManagement.Infrastructure.Logging;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -29,6 +32,8 @@ public static class InfrastructureServiceRegistration
         services.AddScoped<IIDGenerator, IDGenerator.IDGenerator>();
         services.AddScoped(typeof(IAppLogger<>), typeof(LoggerAdapter<>));
         services.AddScoped<ICacheService, CacheService>();
+        services.Configure<EmailSettings>(configuration.GetSection("EmailSettings"));
+        services.AddScoped<IEmailSender, EmailSender>();
 
         services.AddStackExchangeRedisCache(options =>
         {
