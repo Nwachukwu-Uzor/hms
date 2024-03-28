@@ -34,7 +34,7 @@ public static class InfrastructureServiceRegistration
         {
             options.Configuration = isDevelopment ? 
                                     configuration.GetSection("RedisConnections:Development").Value 
-                                    : configuration.GetSection("RedisConnections:Production").Value;
+                                    : Environment.GetEnvironmentVariable(configuration.GetSection("RedisConnections:Production").Value);
             options.InstanceName = configuration.GetSection("RedisConnections:InstanceName").Value;
 
         });

@@ -22,7 +22,7 @@ public static class PersistenceServiceRegisteration
         {
             services.AddDbContext<AppDbContext>(options =>
             {
-                options.UseNpgsql(configuration.GetConnectionString("Production"));
+                options.UseNpgsql(Environment.GetEnvironmentVariable(configuration.GetConnectionString("Production")));
             });
         }
         services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
