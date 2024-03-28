@@ -22,8 +22,9 @@ namespace HospitalManagement.API.Controllers
         [HttpGet(nameof(GetAll))]
         public async Task<IActionResult> GetAll()
         {
+            var environmentVariable = Environment.GetEnvironmentVariable("Key") ?? "No Key Provided";
             var response = await _sender.Send(new GetAllDepartmentsQuery());
-            return Ok(APIResponseGenerator.GenerateSuccessResponse(response));
+            return Ok(APIResponseGenerator.GenerateSuccessResponse(response, environmentVariable));
         }
 
         [HttpGet(nameof(GetAllJobsByDepartmentId) + "/{departmentId:Guid}")]
