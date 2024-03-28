@@ -53,14 +53,14 @@ namespace HospitalManagement.Application.Features.AppUser
             var user = await _unitOfWork.AppUserRepository.CreateAsync(appUser);
             await _unitOfWork.CompleteAsync();
             await _roleManager.AddUserToRole(appUser.Id, _rolesId.PatientRoleId);
-            var welcomeEmail = new Email
-            {
-                Body = "<div>" +
+            var welcomeEmailBody = "<div>" +
                 "<h3>Hello, </h3>" +
                 "<p>Welcome to clinic, kindly click the link below to confirm your email</p>" +
-                $"<a href='http://front-end-url/user/confirm/{user.Id}'>Confirm Email</a>" +
-                "</div>"
-            };
+                "<a href=" + "http://front-end-url/user/confirm/" + user.Id + ">Confirm Email</a>" +
+                "</div>";
+
+            var welcomeEmail = new Email(request.Email, "Welcome to Clinic One", welcomeEmailBody, null);
+
             var isEmailSent = await _emailSender.SendEmail(welcomeEmail);
             if (!isEmailSent)
             {

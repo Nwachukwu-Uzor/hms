@@ -3,16 +3,19 @@ using HospitalManagement.Application.Models.EmailService;
 using Microsoft.Extensions.Options;
 using SendGrid.Helpers.Mail;
 using SendGrid;
+using HospitalManagement.Application.Contracts.Logging;
 
 namespace HospitalManagement.Infrastructure.EmailService;
 
 public class EmailSender : IEmailSender
 {
     private readonly EmailSettings _emailSettings;
+    private readonly IAppLogger<EmailSender> _logger;
 
-    public EmailSender(IOptions<EmailSettings> emailOptions)
+    public EmailSender(IOptions<EmailSettings> emailOptions, IAppLogger<EmailSender> logger)
     {
         _emailSettings = emailOptions.Value;
+        _logger = logger;
     }
 
     public async Task<bool> SendEmail(Email email)
@@ -27,8 +30,9 @@ public class EmailSender : IEmailSender
             var msg = MailHelper.CreateSingleEmail(from, to, subject, null, htmlContent);
             var response = await client.SendEmailAsync(msg);
             return true;
-        } catch (Exception)
+        } catch (Exception ex)
         {
+            _logger.LogWarning(ex.Message, ex);
             return false;
         }
     }
