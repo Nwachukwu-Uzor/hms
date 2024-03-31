@@ -16,6 +16,7 @@ public class UnitOfWork : IUnitOfWork, IDisposable
     public IRoleRepository RoleRepository { get; }
 
     public IStaffRepository StaffRepository { get; }
+    public IPatientRegisterationRequestRepository PatientRegisterationRequestRepository { get; }
 
     public UnitOfWork(
         IAppUserRepository appUserRepository,
@@ -23,17 +24,19 @@ public class UnitOfWork : IUnitOfWork, IDisposable
         IJobRepository jobRepository,
         IPatientRepository patientRepository,
         IRoleRepository roleRepository,
-        IStaffRepository staffRepository
-,
-        AppDbContext context)
+        IStaffRepository staffRepository,
+        IPatientRegisterationRequestRepository patientRegisterationRequestRepository,
+        AppDbContext context
+    )
     {
+        _context = context;
         AppUserRepository = appUserRepository;
         DepartmentRepository = departmentRepository;
         JobRepository = jobRepository;
         PatientRepository = patientRepository;
         RoleRepository = roleRepository;
         StaffRepository = staffRepository;
-        _context = context;
+        PatientRegisterationRequestRepository = patientRegisterationRequestRepository;
     }
 
     public async Task CompleteAsync()

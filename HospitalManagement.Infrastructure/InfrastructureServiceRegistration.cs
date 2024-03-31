@@ -4,6 +4,7 @@ using HospitalManagement.Application.Contracts.Caching;
 using HospitalManagement.Application.Contracts.EmailService;
 using HospitalManagement.Application.Contracts.IDGenerator;
 using HospitalManagement.Application.Contracts.Logging;
+using HospitalManagement.Application.Models.AccessCodeService;
 using HospitalManagement.Application.Models.AuthService;
 using HospitalManagement.Application.Models.EmailService;
 using HospitalManagement.Application.Models.Encryption;
@@ -47,6 +48,8 @@ public static class InfrastructureServiceRegistration
         });
         services.AddScoped<IEncrytionService, EncryptionService>();
         services.Configure<EncryptionSettings>(configuration.GetSection("EncryptionSettings"));
+        services.Configure<AccessCodeSettings>(configuration.GetSection("AccessCodeSettings"));
+        services.AddScoped<IAccessCodeService, AccessCodeService>();
         return services;
     }
 }

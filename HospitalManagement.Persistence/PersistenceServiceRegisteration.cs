@@ -9,7 +9,11 @@ namespace HospitalManagement.Persistence;
 
 public static class PersistenceServiceRegisteration
 {
-    public static IServiceCollection AddPersistenceServices(this IServiceCollection services, IConfiguration configuration, bool isDevelopment)
+    public static IServiceCollection AddPersistenceServices(
+        this IServiceCollection services, 
+        IConfiguration configuration, 
+        bool isDevelopment
+    )
     {
         if (isDevelopment)
         {
@@ -32,6 +36,7 @@ public static class PersistenceServiceRegisteration
         services.AddScoped<IAppUserRepository, AppUserRepository>();
         services.AddScoped<IPatientRepository, PatientRepository>();
         services.AddScoped<IDepartmentRepository, DepartmentRepository>();
+        services.AddScoped<IPatientRegisterationRequestRepository, PatientRegisterationRequestRepository>();
         services.AddScoped<IUnitOfWork, UnitOfWork>();
         return services;
     }
