@@ -4,6 +4,7 @@ using Microsoft.Extensions.Options;
 using SendGrid.Helpers.Mail;
 using SendGrid;
 using HospitalManagement.Application.Contracts.Logging;
+using HospitalManagement.Application.Contracts;
 
 namespace HospitalManagement.Infrastructure.EmailService;
 
@@ -11,18 +12,21 @@ public class EmailSender : IEmailSender
 {
     private readonly EmailSettings _emailSettings;
     private readonly IAppLogger<EmailSender> _logger;
+    private readonly IEncrytionService _encryptionService;
 
-    public EmailSender(IOptions<EmailSettings> emailOptions, IAppLogger<EmailSender> logger)
+    public EmailSender(IOptions<EmailSettings> emailOptions, IAppLogger<EmailSender> logger, IEncrytionService encryptionService)
     {
         _emailSettings = emailOptions.Value;
         _logger = logger;
+        _encryptionService = encryptionService;
     }
 
     public async Task<bool> SendEmail(Email email)
     {
         try
         {
-            var client = new SendGridClient(Environment.GetEnvironmentVariable(_emailSettings.APIKey));
+            var apiKey = _encryptionService.Decrypt(_emailSettings.APIKey);
+            var client = new SendGridClient(apiKey);
             var from = new EmailAddress(_emailSettings.From, _emailSettings.Username);
             var subject = email.Subject;
             var to = new EmailAddress(email.To);

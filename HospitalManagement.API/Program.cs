@@ -4,8 +4,10 @@ using HospitalManagement.Persistence;
 using HR.LeaveManagement.Api.Middlewares;
 using Microsoft.OpenApi.Models;
 using Serilog;
+// using dotenv.net;
 
 var builder = WebApplication.CreateBuilder(args);
+////DotEnv.Load();
 
 // Add services to the container.
 builder.Host.UseSerilog((context, loggerConfig) =>

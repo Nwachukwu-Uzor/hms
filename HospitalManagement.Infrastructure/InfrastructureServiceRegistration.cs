@@ -1,10 +1,12 @@
-﻿using HospitalManagement.Application.Contracts.AuthService;
+﻿using HospitalManagement.Application.Contracts;
+using HospitalManagement.Application.Contracts.AuthService;
 using HospitalManagement.Application.Contracts.Caching;
 using HospitalManagement.Application.Contracts.EmailService;
 using HospitalManagement.Application.Contracts.IDGenerator;
 using HospitalManagement.Application.Contracts.Logging;
 using HospitalManagement.Application.Models.AuthService;
 using HospitalManagement.Application.Models.EmailService;
+using HospitalManagement.Application.Models.Encryption;
 using HospitalManagement.Application.Models.IDGenerator;
 using HospitalManagement.Infrastructure.AuthService;
 using HospitalManagement.Infrastructure.Caching;
@@ -43,6 +45,8 @@ public static class InfrastructureServiceRegistration
             options.InstanceName = configuration.GetSection("RedisConnections:InstanceName").Value;
 
         });
+        services.AddScoped<IEncrytionService, EncryptionService>();
+        services.Configure<EncryptionSettings>(configuration.GetSection("EncryptionSettings"));
         return services;
     }
 }

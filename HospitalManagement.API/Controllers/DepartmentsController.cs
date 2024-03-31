@@ -1,13 +1,12 @@
 ﻿using HospitalManagement.API.Helpers;
+using HospitalManagement.Application.Contracts;
 using HospitalManagement.Application.Features.Department;
 using MediatR;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HospitalManagement.API.Controllers
 {
-    [Authorize]
+    // [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class DepartmentsController : ControllerBase
@@ -22,9 +21,9 @@ namespace HospitalManagement.API.Controllers
         [HttpGet(nameof(GetAll))]
         public async Task<IActionResult> GetAll()
         {
-            var environmentVariable = Environment.GetEnvironmentVariable("Key") ?? "No Key Provided";
+        
             var response = await _sender.Send(new GetAllDepartmentsQuery());
-            return Ok(APIResponseGenerator.GenerateSuccessResponse(response, environmentVariable));
+            return Ok(APIResponseGenerator.GenerateSuccessResponse(response, "Departments retrieve successfully"));
         }
 
         [HttpGet(nameof(GetAllJobsByDepartmentId) + "/{departmentId:Guid}")]
