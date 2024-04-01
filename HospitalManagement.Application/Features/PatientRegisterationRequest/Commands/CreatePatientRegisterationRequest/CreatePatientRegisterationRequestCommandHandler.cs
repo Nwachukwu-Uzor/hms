@@ -28,7 +28,10 @@ public class CreatePatientRegisterationRequestCommandHandler : IRequestHandler<C
         var validationResult = await validator.ValidateAsync(request);
         if(validationResult.Errors.Any())
         {
-            throw new BadRequestException($"{nameof(Domain.Entities.PatientRegisterationRequest)} throws validation errors", validationResult)
+            throw new BadRequestException(
+                $"{nameof(Domain.Entities.PatientRegisterationRequest)} throws validation errors",
+                validationResult
+            );
         }
         throw new NotImplementedException();
     }
