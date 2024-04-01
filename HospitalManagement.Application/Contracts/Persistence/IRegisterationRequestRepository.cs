@@ -5,4 +5,5 @@ namespace HospitalManagement.Application.Contracts.Persistence;
 
 public interface IPatientRegisterationRequestRepository : IGenericRepository<PatientRegisterationRequest>
 {
+    Task<PatientRegisterationRequest> GetPatientRegisterRequestByIdAndAccessCode(Guid id, string accessCode);
 }

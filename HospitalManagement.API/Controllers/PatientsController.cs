@@ -25,6 +25,13 @@ public class PatientsController : ControllerBase
         return Ok(APIResponseGenerator.GenerateEmptyResponse(true, $"Registeration link sent to {request.Email}"));
     }
 
+    [HttpPost(nameof(VerifyPatientRegisterRequest))]
+    public async Task<IActionResult> VerifyPatientRegisterRequest(VerifyPatientRegisterationRequestCommand request)
+    {
+        var response = await _sender.Send(request);
+        return Ok(APIResponseGenerator.GenerateFailureResponse(response, "Email verified successfully"));
+    }
+
     [HttpPost(nameof(CompletePatientDetails))]
     public async Task<IActionResult> CompletePatientDetails(CompletePatientDetailsCommand command)
     {
