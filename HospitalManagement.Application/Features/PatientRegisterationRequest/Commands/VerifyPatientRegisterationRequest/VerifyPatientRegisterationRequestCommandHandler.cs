@@ -45,6 +45,11 @@ public class VerifyPatientRegisterationRequestCommandHandler : IRequestHandler<V
             throw new BadRequestException("Invalid verification link");
         }
 
+        if (patientRequest.VerificationStatus == Domain.Enums.PatientRequestVerificationStatus.COMPLETED)
+        {
+            throw new BadRequestException("Patient registeration has already been completed");
+        }
+
         if (patientRequest.ExpiresOn <  DateTime.UtcNow && patientRequest.VerificationStatus != Domain.Enums.PatientRequestVerificationStatus.VERIFIED)
         {
             _logger.LogWarning(

@@ -13,7 +13,7 @@ public class CreatePatientRegisterationRequestCommandValidator : AbstractValidat
             .NotEmpty().WithMessage("{PropertyName} is required")
             .NotNull()
             .EmailAddress().WithMessage("{PropertyName} must be a valid email account")
-            .MustAsync(IsEmailUnique).WithMessage("{Property} is already used");
+            .MustAsync(IsEmailUnique).WithMessage("{PropertyName} is already used");
 
     }
 

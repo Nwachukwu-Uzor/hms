@@ -21,7 +21,7 @@ public class PatientsController : ControllerBase
     [HttpPost(nameof(PatientRegisterationRequest))]
     public async Task<IActionResult> PatientRegisterationRequest(CreatePatientRegisterationRequestCommand request)
     {
-        var response = await _sender.Send(request);
+        await _sender.Send(request);
         return Ok(APIResponseGenerator.GenerateEmptyResponse(true, $"Registeration link sent to {request.Email}"));
     }
 
@@ -29,7 +29,14 @@ public class PatientsController : ControllerBase
     public async Task<IActionResult> VerifyPatientRegisterRequest(VerifyPatientRegisterationRequestCommand request)
     {
         var response = await _sender.Send(request);
-        return Ok(APIResponseGenerator.GenerateFailureResponse(response, "Email verified successfully"));
+        return Ok(APIResponseGenerator.GenerateSuccessResponse(response, "Email verified successfully"));
+    }
+
+    [HttpPost(nameof(CreatePatientPassword))]
+    public async Task<IActionResult> CreatePatientPassword(CreatePatientPasswordCommand request)
+    {
+        var response = await _sender.Send(request);
+        return Ok(APIResponseGenerator.GenerateFailureResponse(response, "Password created successfully"));
     }
 
     [HttpPost(nameof(CompletePatientDetails))]

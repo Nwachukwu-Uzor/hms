@@ -24,11 +24,10 @@ public static class APIResponseGenerator
         };
     }
 
-    public static ApiResponseType<object> GenerateEmptyResponse (bool status, object data, string message = "")
+    public static ApiResponseType<object> GenerateEmptyResponse (bool status,  string message = "")
     {
         return new ApiResponseType<object>
         {
-            Data = data,
             Status = status,
             Message = message
         };

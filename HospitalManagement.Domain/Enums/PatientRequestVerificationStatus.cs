@@ -4,5 +4,6 @@ public enum PatientRequestVerificationStatus
 {
     PENDING,
     VERIFIED,
-    CANCELLED
+    CANCELLED,
+    COMPLETED
 }

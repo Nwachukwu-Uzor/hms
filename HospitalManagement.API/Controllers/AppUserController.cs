@@ -19,14 +19,14 @@ namespace HospitalManagement.API.Controllers
         public async Task<IActionResult> CreateStaffUser(CreateStaffUserCommand command)
         {
             var response = await _mediator.Send(command);
-            return Ok(APIResponseGenerator.GenerateEmptyResponse(true, response));
+            return Ok(APIResponseGenerator.GenerateSuccessResponse(response));
         }
         
         [HttpPost(nameof(CreatePatientUser))]
         public async Task<IActionResult> CreatePatientUser(CreatePatientUserCommand command)
         {
             var response = await _mediator.Send(command);
-            return Ok(APIResponseGenerator.GenerateEmptyResponse(true, response));
+            return Ok(APIResponseGenerator.GenerateSuccessResponse(response));
         }
 
         [HttpPost($"{nameof(LoginStaff)}")]

@@ -52,7 +52,7 @@ public class CreatePatientRegisterationRequestCommandHandler : IRequestHandler<C
         };
         var data = await _unitOfWork.PatientRegisterationRequestRepository.CreateAsync(patientRegisterationRequest);
         await _unitOfWork.CompleteAsync();
-        var link = $"{_frontendSettings.Url}/profile/verify-email?requestId={data.Id}&access-code={accessCode}";
+        var link = $"{_frontendSettings.Url}/signup/verify-email?requestId={data.Id}&access-code={accessCode}";
         var emailBody = "<div>"
             + "<h3>Hello</h3>"
             + "<p>Welcome to clinic one. Kindly click the link below to verify your email</p>"
