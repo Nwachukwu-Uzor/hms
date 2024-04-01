@@ -6,5 +6,5 @@ public class PatientRegisterationRequest : BaseEntity
 {
     public string Email { get; set; }
     public string AccessCode { get; set; }
-    public DateTime ExpiresOn { get; set; }
+    public DateTime ExpiresOn { get; set; } = DateTime.UtcNow.AddMinutes(60);
 }

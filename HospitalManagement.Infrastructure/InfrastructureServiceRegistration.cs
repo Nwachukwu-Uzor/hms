@@ -50,6 +50,11 @@ public static class InfrastructureServiceRegistration
         services.Configure<EncryptionSettings>(configuration.GetSection("EncryptionSettings"));
         services.Configure<AccessCodeSettings>(configuration.GetSection("AccessCodeSettings"));
         services.AddScoped<IAccessCodeService, AccessCodeService>();
+        services.Configure<FrontendSettings>(
+           isDevelopment
+           ? configuration.GetSection("FrontendSettings:Development")
+           : configuration.GetSection("FrontendSettings:Production")
+       );
         return services;
     }
 }

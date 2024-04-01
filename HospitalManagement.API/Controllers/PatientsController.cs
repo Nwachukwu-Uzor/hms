@@ -1,5 +1,6 @@
 ﻿using HospitalManagement.API.Helpers;
 using HospitalManagement.Application.Features.Patient;
+using HospitalManagement.Application.Features.PatientRegisterationRequest;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -15,6 +16,13 @@ public class PatientsController : ControllerBase
     public PatientsController(ISender sender)
     {
         _sender = sender;
+    }
+
+    [HttpPost(nameof(PatientRegisterationRequest))]
+    public async Task<IActionResult> PatientRegisterationRequest(CreatePatientRegisterationRequestCommand request)
+    {
+        var response = await _sender.Send(request);
+        return Ok(APIResponseGenerator.GenerateEmptyResponse(true, $"Registeration link sent to {request.Email}"));
     }
 
     [HttpPost(nameof(CompletePatientDetails))]

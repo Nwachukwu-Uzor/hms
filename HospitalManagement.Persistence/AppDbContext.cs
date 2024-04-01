@@ -12,7 +12,7 @@ public class AppDbContext : DbContext
     public DbSet<Department> Departments { get; set; }
     public DbSet<Role> Roles { get; set; }
     public DbSet<Patient> Patients { get; set; }
-
+    public DbSet<PatientRegisterationRequest> PatientRegisterationRequests { get; set; }
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
     {
         
