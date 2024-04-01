@@ -8,5 +8,6 @@ public interface IUnitOfWork
     IPatientRepository PatientRepository { get; }
     IRoleRepository RoleRepository { get; }
     IStaffRepository StaffRepository { get; }
+    IPatientRegisterationRequestRepository PatientRegisterationRequestRepository { get; }
     Task CompleteAsync();
 }

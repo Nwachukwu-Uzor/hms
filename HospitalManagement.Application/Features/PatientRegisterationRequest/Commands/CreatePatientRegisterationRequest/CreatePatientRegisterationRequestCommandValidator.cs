@@ -19,7 +19,7 @@ public class CreatePatientRegisterationRequestCommandValidator : AbstractValidat
 
     private async Task<bool> IsEmailUnique(string email, CancellationToken token)
     {
-        var isEmailUnique = await _unitOfWork.AppUserRepository.IsEmailUnique(email)
+        var isEmailUnique = await _unitOfWork.AppUserRepository.IsEmailUnique(email);
         return isEmailUnique;
     }
 }

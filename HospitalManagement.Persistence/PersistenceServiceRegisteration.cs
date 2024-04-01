@@ -38,6 +38,7 @@ public static class PersistenceServiceRegisteration
         services.AddScoped<IDepartmentRepository, DepartmentRepository>();
         services.AddScoped<IPatientRegisterationRequestRepository, PatientRegisterationRequestRepository>();
         services.AddScoped<IUnitOfWork, UnitOfWork>();
+       
         return services;
     }
 }

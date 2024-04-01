@@ -3,5 +3,5 @@
 public class AccessCodeSettings
 {
     public int AccessCodeLength { get; set; }
-    public decimal ExpirationDurationInHours { get; set; }
+    public double ExpirationDurationInHours { get; set; }
 }
