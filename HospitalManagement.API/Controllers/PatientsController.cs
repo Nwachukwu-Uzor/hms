@@ -36,7 +36,7 @@ public class PatientsController : ControllerBase
     public async Task<IActionResult> CreatePatientPassword(CreatePatientPasswordCommand request)
     {
         var response = await _sender.Send(request);
-        return Ok(APIResponseGenerator.GenerateFailureResponse(response, "Password created successfully"));
+        return Ok(APIResponseGenerator.GenerateSuccessResponse(response, "Password created successfully"));
     }
 
     [HttpPost(nameof(CompletePatientDetails))]

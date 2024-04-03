@@ -29,8 +29,8 @@ namespace HospitalManagement.API.Controllers
             return Ok(APIResponseGenerator.GenerateSuccessResponse(response));
         }
 
-        [HttpPost($"{nameof(LoginStaff)}")]
-        public async Task<IActionResult> LoginStaff(LoginStaffUserCommand command)
+        [HttpPost($"{nameof(LoginStaffUser)}")]
+        public async Task<IActionResult> LoginStaffUser(LoginStaffUserCommand command)
         {
             var response = await _mediator.Send(command);
             return Ok(APIResponseGenerator.GenerateSuccessResponse(response, "Login successful"));
