@@ -5,7 +5,7 @@ namespace HospitalManagement.Application.Features.Patient;
 
 public class CompletePatientDetailsCommand : IRequest<PatientDto>
 {
-    public Guid AppUserId { get; set; }
+    public Guid? AppUserId { get; set; }
     public string FirstName { get; set; }
     public string LastName { get; set; }
     public string MiddleName { get; set; }

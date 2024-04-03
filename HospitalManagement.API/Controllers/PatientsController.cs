@@ -62,8 +62,11 @@ public class PatientsController : ControllerBase
     [HttpPost(nameof(CompletePatientDetails))]
     public async Task<IActionResult> CompletePatientDetails(CompletePatientDetailsCommand command)
     {
-        var userId = GetUserId();
-        command.AppUserId = userId;
+        if (command.AppUserId == null)
+        {
+            var userId = GetUserId();
+            command.AppUserId = userId;
+        }
         var response = await _sender.Send(command);
         return Ok(APIResponseGenerator.GenerateSuccessResponse(response));
     }
