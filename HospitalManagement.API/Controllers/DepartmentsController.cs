@@ -1,5 +1,4 @@
 ﻿using HospitalManagement.API.Helpers;
-using HospitalManagement.Application.Contracts;
 using HospitalManagement.Application.Features.Department;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -21,7 +20,6 @@ namespace HospitalManagement.API.Controllers
         [HttpGet(nameof(GetAll))]
         public async Task<IActionResult> GetAll()
         {
-        
             var response = await _sender.Send(new GetAllDepartmentsQuery());
             return Ok(APIResponseGenerator.GenerateSuccessResponse(response, "Departments retrieve successfully"));
         }

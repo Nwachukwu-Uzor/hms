@@ -1,6 +1,7 @@
 ﻿using HospitalManagement.Application.Contracts.AuthService;
 using HospitalManagement.Application.Features.AppUser;
 using HospitalManagement.Application.Models.AuthService;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -17,6 +18,14 @@ public class JwtTokenService : IJwtTokenService
     {
          _jwtSettings = options.Value;
     }
+
+    public SecurityToken DecodeToken(string token)
+    {
+            var handler = new JwtSecurityTokenHandler();
+            var decodedToken = handler.ReadToken(token);
+            return decodedToken;
+    }
+
     public TokenData GenerateToken(AppUserDto user)
     {
         var claims = new List<Claim>() {

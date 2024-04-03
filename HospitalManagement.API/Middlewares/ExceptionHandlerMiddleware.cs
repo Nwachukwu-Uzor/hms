@@ -8,7 +8,7 @@ namespace HR.LeaveManagement.Api.Middlewares;
 
 public class ExceptionHandlerMiddleware
 {
-    private RequestDelegate _next;
+    private readonly RequestDelegate _next;
     private readonly ILogger<ExceptionHandlerMiddleware> _logger;
 
     public ExceptionHandlerMiddleware(RequestDelegate next, ILogger<ExceptionHandlerMiddleware> logger)

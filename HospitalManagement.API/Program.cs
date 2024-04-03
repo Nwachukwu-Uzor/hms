@@ -1,3 +1,4 @@
+using HospitalManagement.API.Middlewares;
 using HospitalManagement.Application;
 using HospitalManagement.Infrastructure;
 using HospitalManagement.Persistence;
@@ -71,7 +72,7 @@ app.UseHttpsRedirection();
 
 app.UseAuthentication();
 app.UseAuthorization();
-app.UseMiddleware<ExceptionHandlerMiddleware>();
+app.AddCustomMiddlewares();
 app.UseSerilogRequestLogging();
 
 app.MapControllers();
