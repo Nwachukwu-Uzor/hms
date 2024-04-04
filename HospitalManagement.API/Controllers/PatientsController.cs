@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using System.Security.Claims;
 
 namespace HospitalManagement.API.Controllers;
 
@@ -31,7 +32,8 @@ public class PatientsController : ControllerBase
 
             // Your logic to validate or process the token
             var decodedToken = _jwtService.DecodeToken(extractedToken);
-            return Guid.Parse(decodedToken.Id);
+            var claim = decodedToken.Claims.FirstOrDefault(c => c.Type == "Id" );
+            return Guid.Parse(claim.Value);
         }
 
         return default;
@@ -62,13 +64,9 @@ public class PatientsController : ControllerBase
     [HttpPost(nameof(CompletePatientDetails))]
     public async Task<IActionResult> CompletePatientDetails(CompletePatientDetailsCommand command)
     {
-        if (command.AppUserId == null)
-        {
-            var userId = GetUserId();
-            command.AppUserId = userId;
-        }
+       
         var response = await _sender.Send(command);
-        return Ok(APIResponseGenerator.GenerateSuccessResponse(response));
+        return Ok(APIResponseGenerator.GenerateSuccessResponse(response, "Profile retrieved successfully"));
     }
 
     [HttpGet(nameof(GetPatientDetailsByPatientID) + "/{patientID}")]
@@ -79,8 +77,8 @@ public class PatientsController : ControllerBase
     }
 
     [Authorize]
-    [HttpGet(nameof(GetPatientDetailsByAppUserIdD))]
-    public async Task<IActionResult> GetPatientDetailsByAppUserIdD()
+    [HttpGet(nameof(GetPatientDetailsByAppUserID))]
+    public async Task<IActionResult> GetPatientDetailsByAppUserID()
     {
         var userId = GetUserId();
         var response = await _sender.Send(new GetPatientByAppUserIDQuery(userId));

@@ -16,8 +16,6 @@ public class CompletePatientDetailsCommandHandler : IRequestHandler<CompletePati
 
     public CompletePatientDetailsCommandHandler(
         IMapper mapper,
-        IPatientRepository patientRepository,
-        IJobRepository departmentRepository,
         IAppUserRepository appUserRepository,
         IIDGenerator idGenerator,
         IUnitOfWork unitOfWork)

@@ -4,6 +4,7 @@ using HospitalManagement.Application.Models.AuthService;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -19,10 +20,10 @@ public class JwtTokenService : IJwtTokenService
          _jwtSettings = options.Value;
     }
 
-    public SecurityToken DecodeToken(string token)
+    public JwtSecurityToken DecodeToken(string token)
     {
             var handler = new JwtSecurityTokenHandler();
-            var decodedToken = handler.ReadToken(token);
+            var decodedToken = handler.ReadToken(token) as JwtSecurityToken;
             return decodedToken;
     }
 
