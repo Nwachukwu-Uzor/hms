@@ -1,17 +1,16 @@
-﻿using HospitalManagement.Domain.Common;
+﻿using MediatR;
 
-namespace HospitalManagement.Domain.Entities;
+namespace HospitalManagement.Application.Features.Staff;
 
-public class Staff : BaseEntity
+public class OnboardStaffCommand : IRequest<string>
 {
+    public string Email { get; set; }
     public string FirstName { get; set; }
     public string LastName { get; set; }
     public string MiddleName { get; set; }
     public DateTime DateOfBirth { get; set; }
     public string Address { get; set; }
+    public Guid JobId { get; set; }
     public string PhoneNumber { get; set; }
     public string Country { get; set; }
-    public AppUser AppUser { get; set; }
-    public Job Job { get; set; }
-    public string StaffID { get; set; }
 }

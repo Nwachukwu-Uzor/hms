@@ -23,11 +23,18 @@ namespace HospitalManagement.API.Controllers
             return Ok(APIResponseGenerator.GenerateSuccessResponse(response));
         }
 
+        [HttpPost(nameof(OnboardStaff))]
+        public async Task<IActionResult> OnboardStaff(OnboardStaffCommand command)
+        {
+            var response = await _sender.Send(command);
+            return Ok(APIResponseGenerator.GenerateSuccessResponse(response, "Staff onboarded successfully"));
+        }
+
         [HttpGet($"{nameof(GetStaffByStaffId)}" + "/{staffId}")]
         public async Task<IActionResult> GetStaffByStaffId(string staffId)
         {
             var response = await _sender.Send(new GetStaffByStaffIdQuery(staffId));
-            return Ok(response);
+            return Ok(APIResponseGenerator.GenerateSuccessResponse(response, "Staff details retrieved successfully"));
         }
 
         [HttpGet(nameof(GetStaffPaginated))]
@@ -41,5 +48,7 @@ namespace HospitalManagement.API.Controllers
                 )
             );
         }
+
+        
     }
 }

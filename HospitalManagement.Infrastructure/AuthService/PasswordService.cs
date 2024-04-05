@@ -1,7 +1,6 @@
 ﻿using HospitalManagement.Application.Contracts.AuthService;
 using HospitalManagement.Application.Models.AuthService;
 using Microsoft.Extensions.Options;
-using System;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -11,6 +10,7 @@ public class PasswordService : IPasswordService
 {
     private HashAlgorithmName hashAlgorithm = HashAlgorithmName.SHA512;
     private readonly PasswordSettings _passwordSettings;
+    private const int SYSTEM_GENERATED_PASSWORD_LENGTH = 10;
 
     public PasswordService(IOptions<PasswordSettings> passwordSettings)
     {
@@ -49,5 +49,19 @@ public class PasswordService : IPasswordService
             Salt = Convert.ToHexString(salt),
             Hash = Convert.ToHexString(hash)
         };
+    }
+
+    public string GenerateRandomPassword()
+    {
+        const string PASSWORD_CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@%$#!?";
+        var random = new Random();
+        var passwordBuilder = new StringBuilder();
+
+        for (int i = 0; i < SYSTEM_GENERATED_PASSWORD_LENGTH; i++)
+        {
+            passwordBuilder.Append(PASSWORD_CHARACTERS[random.Next(PASSWORD_CHARACTERS.Length)]);
+        }
+
+        return passwordBuilder.ToString();
     }
 }

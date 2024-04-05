@@ -10,5 +10,6 @@ public class StaffProfile : Profile
     {
         CreateMap<AddStaffCommand, Staff>();
         CreateMap<Staff, StaffDto>();
+        CreateMap<OnboardStaffCommand, Staff>();
     }
 }
