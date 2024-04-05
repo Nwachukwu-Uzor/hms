@@ -2,6 +2,7 @@
 using HospitalManagement.Application.Contracts.AuthService;
 using HospitalManagement.Application.Features.Patient;
 using HospitalManagement.Application.Features.PatientRegisterationRequest;
+using HospitalManagement.Application.Features.Staff;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -84,5 +85,17 @@ public class PatientsController : ControllerBase
         var response = await _sender.Send(new GetPatientByAppUserIDQuery(userId));
         var message = response == null ? "No patient record found" : "Patient record retrieved successfully.";
         return Ok(APIResponseGenerator.GenerateSuccessResponse(response, message));
+    }
+
+    [HttpGet(nameof(GetStaffPaginated))]
+    public async Task<IActionResult> GetStaffPaginated(int page, int pageSize)
+    {
+        var response = await _sender.Send(new GetStaffPaginatedQuery(page, pageSize));
+        return Ok(
+            APIResponseGenerator.GenerateSuccessResponse(
+                response, 
+                response.Data.Count > 0 ? "Staff retrieved successfully" : "No records found"
+            )
+        );
     }
 }

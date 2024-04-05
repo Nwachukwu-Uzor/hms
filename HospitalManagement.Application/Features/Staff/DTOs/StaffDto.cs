@@ -13,6 +13,5 @@ public class StaffDto
     public string Address { get; set; }
     public AppUserDto AppUser { get; set; }
     public JobDto Job { get; set; }
-    // public Job Job { get; set; }
     public string StaffID { get; set; }
 }

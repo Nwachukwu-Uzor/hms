@@ -1,5 +1,4 @@
-﻿using HospitalManagement.Application.Features.Staff;
-using MediatR;
+﻿using MediatR;
 
 namespace HospitalManagement.Application.Features.Staff;
 

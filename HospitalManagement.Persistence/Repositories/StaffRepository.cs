@@ -1,4 +1,5 @@
 ﻿using HospitalManagement.Application.Contracts.Persistence;
+using HospitalManagement.Application.Models.Persistence;
 using HospitalManagement.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,6 +10,20 @@ public class StaffRepository : GenericRepository<Staff>, IStaffRepository
     public StaffRepository(AppDbContext context) : base(context)
     {
         
+    }
+
+    public override async  Task<PaginatedData<Staff>> GetAllPaginated(int page, int pageSize)
+    {
+        var count = await _context.Staffs.CountAsync(entity => !entity.IsDeleted);
+        var records = await _context.Staffs
+            .Where(entity => entity.IsDeleted == false)
+            .Skip((page - 1) * pageSize)
+            .Take(pageSize)
+            .Include(staff => staff.Job)
+            .Include(staff => staff.AppUser)
+            .ToListAsync();
+        var response = new PaginatedData<Staff>(records, pageSize, count, page);
+        return response;
     }
 
     public async Task<Staff> GetStaffByAppUserId(Guid appUserId)

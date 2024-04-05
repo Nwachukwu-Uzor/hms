@@ -7,7 +7,7 @@ public interface IGenericRepository<T> where T : BaseEntity
 {
     Task<T> CreateAsync(T entity);
     T UpdateAsync(T entity);
-    Task<T> DeleteAsync(T entity);
+    T DeleteAsync(T entity);
     Task<IReadOnlyList<T>> GetAllAsync();
     Task<T> GetByIdAsync(Guid id);
     Task<bool> DoesEntityExistAsync(Guid id);
