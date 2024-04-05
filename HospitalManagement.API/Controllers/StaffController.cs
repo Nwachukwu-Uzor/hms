@@ -29,5 +29,17 @@ namespace HospitalManagement.API.Controllers
             var response = await _sender.Send(new GetStaffByStaffIdQuery(staffId));
             return Ok(response);
         }
+
+        [HttpGet(nameof(GetStaffPaginated))]
+        public async Task<IActionResult> GetStaffPaginated(int page, int pageSize)
+        {
+            var response = await _sender.Send(new GetStaffPaginatedQuery(page, pageSize));
+            return Ok(
+                APIResponseGenerator.GenerateSuccessResponse(
+                    response,
+                    response.Data.Count > 0 ? "Staff retrieved successfully" : "No records found"
+                )
+            );
+        }
     }
 }

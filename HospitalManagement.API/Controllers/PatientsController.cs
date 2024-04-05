@@ -86,16 +86,4 @@ public class PatientsController : ControllerBase
         var message = response == null ? "No patient record found" : "Patient record retrieved successfully.";
         return Ok(APIResponseGenerator.GenerateSuccessResponse(response, message));
     }
-
-    [HttpGet(nameof(GetStaffPaginated))]
-    public async Task<IActionResult> GetStaffPaginated(int page, int pageSize)
-    {
-        var response = await _sender.Send(new GetStaffPaginatedQuery(page, pageSize));
-        return Ok(
-            APIResponseGenerator.GenerateSuccessResponse(
-                response, 
-                response.Data.Count > 0 ? "Staff retrieved successfully" : "No records found"
-            )
-        );
-    }
 }

@@ -42,7 +42,7 @@ public class GetStaffPaginatedQueryHandler : IRequestHandler<GetStaffPaginatedQu
         var data = _mapper.Map<List<StaffDto>>(staffData.Data);
 
         var response =  new PaginatedData<StaffDto>(data, request.PageSize, staffData.TotalRecords, request.Page);
-        await _cacheService.SetRecordAsync<PaginatedData<StaffDto>>(cacheKey, response, TimeSpan.FromMinutes(5));
+        await _cacheService.SetRecordAsync(cacheKey, response, TimeSpan.FromMinutes(5));
         return response;
     }
 }

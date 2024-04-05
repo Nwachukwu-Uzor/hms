@@ -19,7 +19,7 @@ public class StaffRepository : GenericRepository<Staff>, IStaffRepository
             .Where(entity => entity.IsDeleted == false)
             .Skip((page - 1) * pageSize)
             .Take(pageSize)
-            .Include(staff => staff.Job)
+            .Include(staff => staff.Job.Department)
             .Include(staff => staff.AppUser)
             .ToListAsync();
         var response = new PaginatedData<Staff>(records, pageSize, count, page);
