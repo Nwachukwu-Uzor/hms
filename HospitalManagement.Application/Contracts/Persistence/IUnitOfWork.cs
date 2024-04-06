@@ -9,5 +9,8 @@ public interface IUnitOfWork
     IRoleRepository RoleRepository { get; }
     IStaffRepository StaffRepository { get; }
     IPatientRegisterationRequestRepository PatientRegisterationRequestRepository { get; }
+    IAppointmentRepository AppointmentRepository { get; }
+    IDoctorJobRepository DoctorJobRepository { get; }
+    IDoctorRepository DoctorRepository { get; } 
     Task CompleteAsync();
 }

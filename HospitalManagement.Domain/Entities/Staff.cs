@@ -11,6 +11,7 @@ public class Staff : BaseEntity
     public string Address { get; set; }
     public string PhoneNumber { get; set; }
     public string Country { get; set; }
+    public Guid AppUserId { get; set; }
     public AppUser AppUser { get; set; }
     public Job Job { get; set; }
     public string StaffID { get; set; }

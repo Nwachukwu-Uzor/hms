@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace HospitalManagement.Persistence.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240401064417_AddPatientRegisterationRequestEntity")]
-    partial class AddPatientRegisterationRequestEntity
+    [Migration("20240406141351_Init_Fix")]
+    partial class Init_Fix
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -37,6 +37,53 @@ namespace HospitalManagement.Persistence.Migrations
                     b.HasIndex("UsersId");
 
                     b.ToTable("AppUserRole");
+                });
+
+            modelBuilder.Entity("HospitalManagement.Domain.Entities.Appointment", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("AppointmentTime")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime>("DateModified")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<Guid>("DoctorId")
+                        .HasColumnType("uuid");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("text");
+
+                    b.Property<Guid>("PatientId")
+                        .HasColumnType("uuid");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DoctorId");
+
+                    b.HasIndex("PatientId");
+
+                    b.ToTable("Appointments");
                 });
 
             modelBuilder.Entity("HospitalManagement.Domain.Entities.AppUser", b =>
@@ -113,8 +160,8 @@ namespace HospitalManagement.Persistence.Migrations
                         {
                             Id = new Guid("0169dd27-a25a-46d7-91c5-5c24e0a5fd54"),
                             CreatedBy = "ADMIN",
-                            DateCreated = new DateTime(2024, 4, 1, 6, 44, 16, 695, DateTimeKind.Utc).AddTicks(9501),
-                            DateModified = new DateTime(2024, 4, 1, 6, 44, 16, 695, DateTimeKind.Utc).AddTicks(9503),
+                            DateCreated = new DateTime(2024, 4, 6, 14, 13, 51, 382, DateTimeKind.Utc).AddTicks(7543),
+                            DateModified = new DateTime(2024, 4, 6, 14, 13, 51, 382, DateTimeKind.Utc).AddTicks(7546),
                             IsDeleted = false,
                             Name = "EMERGENCY DEPARTMENT"
                         },
@@ -122,8 +169,8 @@ namespace HospitalManagement.Persistence.Migrations
                         {
                             Id = new Guid("6bfb6b7e-2091-4a82-a7a9-f14df1a92450"),
                             CreatedBy = "ADMIN",
-                            DateCreated = new DateTime(2024, 4, 1, 6, 44, 16, 695, DateTimeKind.Utc).AddTicks(9516),
-                            DateModified = new DateTime(2024, 4, 1, 6, 44, 16, 695, DateTimeKind.Utc).AddTicks(9517),
+                            DateCreated = new DateTime(2024, 4, 6, 14, 13, 51, 382, DateTimeKind.Utc).AddTicks(7560),
+                            DateModified = new DateTime(2024, 4, 6, 14, 13, 51, 382, DateTimeKind.Utc).AddTicks(7561),
                             IsDeleted = false,
                             Name = "MEDICAL/SURGICAL UNIT"
                         },
@@ -131,8 +178,8 @@ namespace HospitalManagement.Persistence.Migrations
                         {
                             Id = new Guid("9bfc8c5c-5906-4a44-96ae-71f17e22e7e1"),
                             CreatedBy = "ADMIN",
-                            DateCreated = new DateTime(2024, 4, 1, 6, 44, 16, 695, DateTimeKind.Utc).AddTicks(9518),
-                            DateModified = new DateTime(2024, 4, 1, 6, 44, 16, 695, DateTimeKind.Utc).AddTicks(9518),
+                            DateCreated = new DateTime(2024, 4, 6, 14, 13, 51, 382, DateTimeKind.Utc).AddTicks(7562),
+                            DateModified = new DateTime(2024, 4, 6, 14, 13, 51, 382, DateTimeKind.Utc).AddTicks(7563),
                             IsDeleted = false,
                             Name = "INTENSIVE CARE UNIT"
                         },
@@ -140,8 +187,8 @@ namespace HospitalManagement.Persistence.Migrations
                         {
                             Id = new Guid("b60d76e9-5cc5-44e7-9336-18e45494ff26"),
                             CreatedBy = "ADMIN",
-                            DateCreated = new DateTime(2024, 4, 1, 6, 44, 16, 695, DateTimeKind.Utc).AddTicks(9519),
-                            DateModified = new DateTime(2024, 4, 1, 6, 44, 16, 695, DateTimeKind.Utc).AddTicks(9520),
+                            DateCreated = new DateTime(2024, 4, 6, 14, 13, 51, 382, DateTimeKind.Utc).AddTicks(7564),
+                            DateModified = new DateTime(2024, 4, 6, 14, 13, 51, 382, DateTimeKind.Utc).AddTicks(7564),
                             IsDeleted = false,
                             Name = "LABORATORY"
                         },
@@ -149,8 +196,8 @@ namespace HospitalManagement.Persistence.Migrations
                         {
                             Id = new Guid("5a128d7e-c137-47b1-bd49-2e9733d694ad"),
                             CreatedBy = "ADMIN",
-                            DateCreated = new DateTime(2024, 4, 1, 6, 44, 16, 695, DateTimeKind.Utc).AddTicks(9522),
-                            DateModified = new DateTime(2024, 4, 1, 6, 44, 16, 695, DateTimeKind.Utc).AddTicks(9522),
+                            DateCreated = new DateTime(2024, 4, 6, 14, 13, 51, 382, DateTimeKind.Utc).AddTicks(7566),
+                            DateModified = new DateTime(2024, 4, 6, 14, 13, 51, 382, DateTimeKind.Utc).AddTicks(7566),
                             IsDeleted = false,
                             Name = "RADIOLOGY"
                         },
@@ -158,8 +205,8 @@ namespace HospitalManagement.Persistence.Migrations
                         {
                             Id = new Guid("1aae1f9e-3a45-4ee6-8b3d-f86b2b73b3f9"),
                             CreatedBy = "ADMIN",
-                            DateCreated = new DateTime(2024, 4, 1, 6, 44, 16, 695, DateTimeKind.Utc).AddTicks(9523),
-                            DateModified = new DateTime(2024, 4, 1, 6, 44, 16, 695, DateTimeKind.Utc).AddTicks(9524),
+                            DateCreated = new DateTime(2024, 4, 6, 14, 13, 51, 382, DateTimeKind.Utc).AddTicks(7568),
+                            DateModified = new DateTime(2024, 4, 6, 14, 13, 51, 382, DateTimeKind.Utc).AddTicks(7568),
                             IsDeleted = false,
                             Name = "PHARMACY"
                         },
@@ -167,8 +214,8 @@ namespace HospitalManagement.Persistence.Migrations
                         {
                             Id = new Guid("7b7f70f0-414c-4b25-8602-3e005aeb5869"),
                             CreatedBy = "ADMIN",
-                            DateCreated = new DateTime(2024, 4, 1, 6, 44, 16, 695, DateTimeKind.Utc).AddTicks(9525),
-                            DateModified = new DateTime(2024, 4, 1, 6, 44, 16, 695, DateTimeKind.Utc).AddTicks(9525),
+                            DateCreated = new DateTime(2024, 4, 6, 14, 13, 51, 382, DateTimeKind.Utc).AddTicks(7569),
+                            DateModified = new DateTime(2024, 4, 6, 14, 13, 51, 382, DateTimeKind.Utc).AddTicks(7569),
                             IsDeleted = false,
                             Name = "OPERATING ROOMS"
                         },
@@ -176,8 +223,8 @@ namespace HospitalManagement.Persistence.Migrations
                         {
                             Id = new Guid("a15b0843-2c4d-4bcb-bc88-028e14e6cb69"),
                             CreatedBy = "ADMIN",
-                            DateCreated = new DateTime(2024, 4, 1, 6, 44, 16, 695, DateTimeKind.Utc).AddTicks(9526),
-                            DateModified = new DateTime(2024, 4, 1, 6, 44, 16, 695, DateTimeKind.Utc).AddTicks(9526),
+                            DateCreated = new DateTime(2024, 4, 6, 14, 13, 51, 382, DateTimeKind.Utc).AddTicks(7570),
+                            DateModified = new DateTime(2024, 4, 6, 14, 13, 51, 382, DateTimeKind.Utc).AddTicks(7571),
                             IsDeleted = false,
                             Name = "MATERNITY/WOMEN'S HEALTH"
                         },
@@ -185,8 +232,8 @@ namespace HospitalManagement.Persistence.Migrations
                         {
                             Id = new Guid("02b204b2-ee02-4a25-b087-d21e7cb9abf3"),
                             CreatedBy = "ADMIN",
-                            DateCreated = new DateTime(2024, 4, 1, 6, 44, 16, 695, DateTimeKind.Utc).AddTicks(9527),
-                            DateModified = new DateTime(2024, 4, 1, 6, 44, 16, 695, DateTimeKind.Utc).AddTicks(9527),
+                            DateCreated = new DateTime(2024, 4, 6, 14, 13, 51, 382, DateTimeKind.Utc).AddTicks(7572),
+                            DateModified = new DateTime(2024, 4, 6, 14, 13, 51, 382, DateTimeKind.Utc).AddTicks(7572),
                             IsDeleted = false,
                             Name = "PEDIATRICS"
                         },
@@ -194,8 +241,8 @@ namespace HospitalManagement.Persistence.Migrations
                         {
                             Id = new Guid("fbd52b17-d1b5-44f2-bdc0-af2d749150bf"),
                             CreatedBy = "ADMIN",
-                            DateCreated = new DateTime(2024, 4, 1, 6, 44, 16, 695, DateTimeKind.Utc).AddTicks(9528),
-                            DateModified = new DateTime(2024, 4, 1, 6, 44, 16, 695, DateTimeKind.Utc).AddTicks(9529),
+                            DateCreated = new DateTime(2024, 4, 6, 14, 13, 51, 382, DateTimeKind.Utc).AddTicks(7573),
+                            DateModified = new DateTime(2024, 4, 6, 14, 13, 51, 382, DateTimeKind.Utc).AddTicks(7573),
                             IsDeleted = false,
                             Name = "PSYCHIATRY/PSYCHOLOGY"
                         },
@@ -203,8 +250,8 @@ namespace HospitalManagement.Persistence.Migrations
                         {
                             Id = new Guid("dc06a832-8d7c-42b6-a5c8-177c15dc52ff"),
                             CreatedBy = "ADMIN",
-                            DateCreated = new DateTime(2024, 4, 1, 6, 44, 16, 695, DateTimeKind.Utc).AddTicks(9529),
-                            DateModified = new DateTime(2024, 4, 1, 6, 44, 16, 695, DateTimeKind.Utc).AddTicks(9530),
+                            DateCreated = new DateTime(2024, 4, 6, 14, 13, 51, 382, DateTimeKind.Utc).AddTicks(7574),
+                            DateModified = new DateTime(2024, 4, 6, 14, 13, 51, 382, DateTimeKind.Utc).AddTicks(7575),
                             IsDeleted = false,
                             Name = "PHYSICAL THERAPY/REHABILITATION"
                         },
@@ -212,8 +259,8 @@ namespace HospitalManagement.Persistence.Migrations
                         {
                             Id = new Guid("bf92ad4f-ebae-4e1f-97e4-9f61adba017b"),
                             CreatedBy = "ADMIN",
-                            DateCreated = new DateTime(2024, 4, 1, 6, 44, 16, 695, DateTimeKind.Utc).AddTicks(9531),
-                            DateModified = new DateTime(2024, 4, 1, 6, 44, 16, 695, DateTimeKind.Utc).AddTicks(9531),
+                            DateCreated = new DateTime(2024, 4, 6, 14, 13, 51, 382, DateTimeKind.Utc).AddTicks(7576),
+                            DateModified = new DateTime(2024, 4, 6, 14, 13, 51, 382, DateTimeKind.Utc).AddTicks(7576),
                             IsDeleted = false,
                             Name = "NUTRITION SERVICES"
                         },
@@ -221,8 +268,8 @@ namespace HospitalManagement.Persistence.Migrations
                         {
                             Id = new Guid("2b23f10a-9319-4862-856f-6fca2c64a5f3"),
                             CreatedBy = "ADMIN",
-                            DateCreated = new DateTime(2024, 4, 1, 6, 44, 16, 695, DateTimeKind.Utc).AddTicks(9532),
-                            DateModified = new DateTime(2024, 4, 1, 6, 44, 16, 695, DateTimeKind.Utc).AddTicks(9532),
+                            DateCreated = new DateTime(2024, 4, 6, 14, 13, 51, 382, DateTimeKind.Utc).AddTicks(7578),
+                            DateModified = new DateTime(2024, 4, 6, 14, 13, 51, 382, DateTimeKind.Utc).AddTicks(7579),
                             IsDeleted = false,
                             Name = "RESPIRATORY THERAPY"
                         },
@@ -230,8 +277,8 @@ namespace HospitalManagement.Persistence.Migrations
                         {
                             Id = new Guid("f9a0b47f-8c2c-43dc-9e19-7d963f7f7d43"),
                             CreatedBy = "ADMIN",
-                            DateCreated = new DateTime(2024, 4, 1, 6, 44, 16, 695, DateTimeKind.Utc).AddTicks(9533),
-                            DateModified = new DateTime(2024, 4, 1, 6, 44, 16, 695, DateTimeKind.Utc).AddTicks(9533),
+                            DateCreated = new DateTime(2024, 4, 6, 14, 13, 51, 382, DateTimeKind.Utc).AddTicks(7580),
+                            DateModified = new DateTime(2024, 4, 6, 14, 13, 51, 382, DateTimeKind.Utc).AddTicks(7581),
                             IsDeleted = false,
                             Name = "SOCIAL SERVICES"
                         },
@@ -239,10 +286,130 @@ namespace HospitalManagement.Persistence.Migrations
                         {
                             Id = new Guid("d5f66dc4-dfad-4be0-90a3-251a97ad9462"),
                             CreatedBy = "ADMIN",
-                            DateCreated = new DateTime(2024, 4, 1, 6, 44, 16, 695, DateTimeKind.Utc).AddTicks(9534),
-                            DateModified = new DateTime(2024, 4, 1, 6, 44, 16, 695, DateTimeKind.Utc).AddTicks(9535),
+                            DateCreated = new DateTime(2024, 4, 6, 14, 13, 51, 382, DateTimeKind.Utc).AddTicks(7582),
+                            DateModified = new DateTime(2024, 4, 6, 14, 13, 51, 382, DateTimeKind.Utc).AddTicks(7582),
                             IsDeleted = false,
                             Name = "ADMINISTRATION/MANAGEMENT"
+                        });
+                });
+
+            modelBuilder.Entity("HospitalManagement.Domain.Entities.Doctor", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime>("DateModified")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("text");
+
+                    b.Property<Guid>("StaffDetailsId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("StaffDetailsId");
+
+                    b.ToTable("Doctors");
+                });
+
+            modelBuilder.Entity("HospitalManagement.Domain.Entities.DoctorJob", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime>("DateModified")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<Guid>("JobId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("JobId");
+
+                    b.ToTable("DoctorJobs");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("e457d0d7-7f7d-4dd1-91b6-57ae307dc9bd"),
+                            CreatedBy = "ADMIN",
+                            DateCreated = new DateTime(2024, 4, 6, 14, 13, 51, 382, DateTimeKind.Utc).AddTicks(7825),
+                            DateModified = new DateTime(2024, 4, 6, 14, 13, 51, 382, DateTimeKind.Utc).AddTicks(7825),
+                            IsDeleted = false,
+                            JobId = new Guid("5a04295f-4886-4bc9-b15e-2aaf303e5fc3")
+                        },
+                        new
+                        {
+                            Id = new Guid("ed88073f-6b2f-41ee-8ac0-956ef67932c8"),
+                            CreatedBy = "ADMIN",
+                            DateCreated = new DateTime(2024, 4, 6, 14, 13, 51, 382, DateTimeKind.Utc).AddTicks(7829),
+                            DateModified = new DateTime(2024, 4, 6, 14, 13, 51, 382, DateTimeKind.Utc).AddTicks(7830),
+                            IsDeleted = false,
+                            JobId = new Guid("ab14514d-67a2-4d8f-bc38-145c7eb665d8")
+                        },
+                        new
+                        {
+                            Id = new Guid("868edd64-161b-40e3-8ca2-38426fcdb05c"),
+                            CreatedBy = "ADMIN",
+                            DateCreated = new DateTime(2024, 4, 6, 14, 13, 51, 382, DateTimeKind.Utc).AddTicks(7831),
+                            DateModified = new DateTime(2024, 4, 6, 14, 13, 51, 382, DateTimeKind.Utc).AddTicks(7832),
+                            IsDeleted = false,
+                            JobId = new Guid("9795f052-3023-40b0-9ba4-4e1d1b7f3a23")
+                        },
+                        new
+                        {
+                            Id = new Guid("f71b6604-e5ff-4454-b666-565e833b8f2d"),
+                            CreatedBy = "ADMIN",
+                            DateCreated = new DateTime(2024, 4, 6, 14, 13, 51, 382, DateTimeKind.Utc).AddTicks(7834),
+                            DateModified = new DateTime(2024, 4, 6, 14, 13, 51, 382, DateTimeKind.Utc).AddTicks(7834),
+                            IsDeleted = false,
+                            JobId = new Guid("8e0d7ed5-15b7-4c63-8694-7e2f6e1614d5")
+                        },
+                        new
+                        {
+                            Id = new Guid("680521fa-d14a-48be-b36c-76b0f4f7eb2b"),
+                            CreatedBy = "ADMIN",
+                            DateCreated = new DateTime(2024, 4, 6, 14, 13, 51, 382, DateTimeKind.Utc).AddTicks(7836),
+                            DateModified = new DateTime(2024, 4, 6, 14, 13, 51, 382, DateTimeKind.Utc).AddTicks(7836),
+                            IsDeleted = false,
+                            JobId = new Guid("8f6ddc41-3b65-42b1-85f2-9a9de16e8394")
+                        },
+                        new
+                        {
+                            Id = new Guid("a8d434fd-355d-42c0-9c16-3621a7bc2085"),
+                            CreatedBy = "ADMIN",
+                            DateCreated = new DateTime(2024, 4, 6, 14, 13, 51, 382, DateTimeKind.Utc).AddTicks(7837),
+                            DateModified = new DateTime(2024, 4, 6, 14, 13, 51, 382, DateTimeKind.Utc).AddTicks(7838),
+                            IsDeleted = false,
+                            JobId = new Guid("c6c6b083-9717-4384-bc8b-c6fcf8e56d61")
                         });
                 });
 
@@ -286,8 +453,8 @@ namespace HospitalManagement.Persistence.Migrations
                         {
                             Id = new Guid("5a04295f-4886-4bc9-b15e-2aaf303e5fc3"),
                             CreatedBy = "ADMIN",
-                            DateCreated = new DateTime(2024, 4, 1, 6, 44, 16, 695, DateTimeKind.Utc).AddTicks(9733),
-                            DateModified = new DateTime(2024, 4, 1, 6, 44, 16, 695, DateTimeKind.Utc).AddTicks(9733),
+                            DateCreated = new DateTime(2024, 4, 6, 14, 13, 51, 382, DateTimeKind.Utc).AddTicks(7937),
+                            DateModified = new DateTime(2024, 4, 6, 14, 13, 51, 382, DateTimeKind.Utc).AddTicks(7938),
                             DepartmentId = new Guid("0169dd27-a25a-46d7-91c5-5c24e0a5fd54"),
                             IsDeleted = false,
                             Title = "Physician"
@@ -296,8 +463,8 @@ namespace HospitalManagement.Persistence.Migrations
                         {
                             Id = new Guid("1e5f2fc7-eb9e-45c7-93a2-4d017a7a6e7a"),
                             CreatedBy = "ADMIN",
-                            DateCreated = new DateTime(2024, 4, 1, 6, 44, 16, 695, DateTimeKind.Utc).AddTicks(9736),
-                            DateModified = new DateTime(2024, 4, 1, 6, 44, 16, 695, DateTimeKind.Utc).AddTicks(9737),
+                            DateCreated = new DateTime(2024, 4, 6, 14, 13, 51, 382, DateTimeKind.Utc).AddTicks(7941),
+                            DateModified = new DateTime(2024, 4, 6, 14, 13, 51, 382, DateTimeKind.Utc).AddTicks(7941),
                             DepartmentId = new Guid("0169dd27-a25a-46d7-91c5-5c24e0a5fd54"),
                             IsDeleted = false,
                             Title = "Registered Nurse"
@@ -306,8 +473,8 @@ namespace HospitalManagement.Persistence.Migrations
                         {
                             Id = new Guid("ab14514d-67a2-4d8f-bc38-145c7eb665d8"),
                             CreatedBy = "ADMIN",
-                            DateCreated = new DateTime(2024, 4, 1, 6, 44, 16, 695, DateTimeKind.Utc).AddTicks(9739),
-                            DateModified = new DateTime(2024, 4, 1, 6, 44, 16, 695, DateTimeKind.Utc).AddTicks(9739),
+                            DateCreated = new DateTime(2024, 4, 6, 14, 13, 51, 382, DateTimeKind.Utc).AddTicks(7943),
+                            DateModified = new DateTime(2024, 4, 6, 14, 13, 51, 382, DateTimeKind.Utc).AddTicks(7944),
                             DepartmentId = new Guid("7b7f70f0-414c-4b25-8602-3e005aeb5869"),
                             IsDeleted = false,
                             Title = "Surgeon"
@@ -316,8 +483,8 @@ namespace HospitalManagement.Persistence.Migrations
                         {
                             Id = new Guid("c6c6b083-9717-4384-bc8b-c6fcf8e56d61"),
                             CreatedBy = "ADMIN",
-                            DateCreated = new DateTime(2024, 4, 1, 6, 44, 16, 695, DateTimeKind.Utc).AddTicks(9741),
-                            DateModified = new DateTime(2024, 4, 1, 6, 44, 16, 695, DateTimeKind.Utc).AddTicks(9741),
+                            DateCreated = new DateTime(2024, 4, 6, 14, 13, 51, 382, DateTimeKind.Utc).AddTicks(7945),
+                            DateModified = new DateTime(2024, 4, 6, 14, 13, 51, 382, DateTimeKind.Utc).AddTicks(7946),
                             DepartmentId = new Guid("7b7f70f0-414c-4b25-8602-3e005aeb5869"),
                             IsDeleted = false,
                             Title = "Anesthesiologist"
@@ -326,8 +493,8 @@ namespace HospitalManagement.Persistence.Migrations
                         {
                             Id = new Guid("5642065b-1d35-4c33-9f05-47fe23b74c4d"),
                             CreatedBy = "ADMIN",
-                            DateCreated = new DateTime(2024, 4, 1, 6, 44, 16, 695, DateTimeKind.Utc).AddTicks(9743),
-                            DateModified = new DateTime(2024, 4, 1, 6, 44, 16, 695, DateTimeKind.Utc).AddTicks(9743),
+                            DateCreated = new DateTime(2024, 4, 6, 14, 13, 51, 382, DateTimeKind.Utc).AddTicks(7947),
+                            DateModified = new DateTime(2024, 4, 6, 14, 13, 51, 382, DateTimeKind.Utc).AddTicks(7948),
                             DepartmentId = new Guid("5a128d7e-c137-47b1-bd49-2e9733d694ad"),
                             IsDeleted = false,
                             Title = "Radiologic Technologist"
@@ -336,8 +503,8 @@ namespace HospitalManagement.Persistence.Migrations
                         {
                             Id = new Guid("9835fc30-d1a9-4f67-84a1-4930edf7f883"),
                             CreatedBy = "ADMIN",
-                            DateCreated = new DateTime(2024, 4, 1, 6, 44, 16, 695, DateTimeKind.Utc).AddTicks(9744),
-                            DateModified = new DateTime(2024, 4, 1, 6, 44, 16, 695, DateTimeKind.Utc).AddTicks(9745),
+                            DateCreated = new DateTime(2024, 4, 6, 14, 13, 51, 382, DateTimeKind.Utc).AddTicks(7949),
+                            DateModified = new DateTime(2024, 4, 6, 14, 13, 51, 382, DateTimeKind.Utc).AddTicks(7950),
                             DepartmentId = new Guid("1aae1f9e-3a45-4ee6-8b3d-f86b2b73b3f9"),
                             IsDeleted = false,
                             Title = "Pharmacist"
@@ -346,8 +513,8 @@ namespace HospitalManagement.Persistence.Migrations
                         {
                             Id = new Guid("9795f052-3023-40b0-9ba4-4e1d1b7f3a23"),
                             CreatedBy = "ADMIN",
-                            DateCreated = new DateTime(2024, 4, 1, 6, 44, 16, 695, DateTimeKind.Utc).AddTicks(9746),
-                            DateModified = new DateTime(2024, 4, 1, 6, 44, 16, 695, DateTimeKind.Utc).AddTicks(9746),
+                            DateCreated = new DateTime(2024, 4, 6, 14, 13, 51, 382, DateTimeKind.Utc).AddTicks(7951),
+                            DateModified = new DateTime(2024, 4, 6, 14, 13, 51, 382, DateTimeKind.Utc).AddTicks(7951),
                             DepartmentId = new Guid("02b204b2-ee02-4a25-b087-d21e7cb9abf3"),
                             IsDeleted = false,
                             Title = "Pediatrician"
@@ -356,8 +523,8 @@ namespace HospitalManagement.Persistence.Migrations
                         {
                             Id = new Guid("8e0d7ed5-15b7-4c63-8694-7e2f6e1614d5"),
                             CreatedBy = "ADMIN",
-                            DateCreated = new DateTime(2024, 4, 1, 6, 44, 16, 695, DateTimeKind.Utc).AddTicks(9748),
-                            DateModified = new DateTime(2024, 4, 1, 6, 44, 16, 695, DateTimeKind.Utc).AddTicks(9748),
+                            DateCreated = new DateTime(2024, 4, 6, 14, 13, 51, 382, DateTimeKind.Utc).AddTicks(7953),
+                            DateModified = new DateTime(2024, 4, 6, 14, 13, 51, 382, DateTimeKind.Utc).AddTicks(7953),
                             DepartmentId = new Guid("fbd52b17-d1b5-44f2-bdc0-af2d749150bf"),
                             IsDeleted = false,
                             Title = "Psychiatrist"
@@ -366,8 +533,8 @@ namespace HospitalManagement.Persistence.Migrations
                         {
                             Id = new Guid("026fb0dc-af73-4ff9-99b1-d6226b1c4ed2"),
                             CreatedBy = "ADMIN",
-                            DateCreated = new DateTime(2024, 4, 1, 6, 44, 16, 695, DateTimeKind.Utc).AddTicks(9750),
-                            DateModified = new DateTime(2024, 4, 1, 6, 44, 16, 695, DateTimeKind.Utc).AddTicks(9750),
+                            DateCreated = new DateTime(2024, 4, 6, 14, 13, 51, 382, DateTimeKind.Utc).AddTicks(7955),
+                            DateModified = new DateTime(2024, 4, 6, 14, 13, 51, 382, DateTimeKind.Utc).AddTicks(7955),
                             DepartmentId = new Guid("dc06a832-8d7c-42b6-a5c8-177c15dc52ff"),
                             IsDeleted = false,
                             Title = "Physical Therapist"
@@ -376,8 +543,8 @@ namespace HospitalManagement.Persistence.Migrations
                         {
                             Id = new Guid("1cb98f70-2c59-4962-aae1-d6e3f2f3e145"),
                             CreatedBy = "ADMIN",
-                            DateCreated = new DateTime(2024, 4, 1, 6, 44, 16, 695, DateTimeKind.Utc).AddTicks(9752),
-                            DateModified = new DateTime(2024, 4, 1, 6, 44, 16, 695, DateTimeKind.Utc).AddTicks(9752),
+                            DateCreated = new DateTime(2024, 4, 6, 14, 13, 51, 382, DateTimeKind.Utc).AddTicks(7956),
+                            DateModified = new DateTime(2024, 4, 6, 14, 13, 51, 382, DateTimeKind.Utc).AddTicks(7957),
                             DepartmentId = new Guid("bf92ad4f-ebae-4e1f-97e4-9f61adba017b"),
                             IsDeleted = false,
                             Title = "Nutritionist"
@@ -386,8 +553,8 @@ namespace HospitalManagement.Persistence.Migrations
                         {
                             Id = new Guid("8f6ddc41-3b65-42b1-85f2-9a9de16e8394"),
                             CreatedBy = "ADMIN",
-                            DateCreated = new DateTime(2024, 4, 1, 6, 44, 16, 695, DateTimeKind.Utc).AddTicks(9753),
-                            DateModified = new DateTime(2024, 4, 1, 6, 44, 16, 695, DateTimeKind.Utc).AddTicks(9754),
+                            DateCreated = new DateTime(2024, 4, 6, 14, 13, 51, 382, DateTimeKind.Utc).AddTicks(7958),
+                            DateModified = new DateTime(2024, 4, 6, 14, 13, 51, 382, DateTimeKind.Utc).AddTicks(7958),
                             DepartmentId = new Guid("2b23f10a-9319-4862-856f-6fca2c64a5f3"),
                             IsDeleted = false,
                             Title = "Respiratory Therapist"
@@ -396,8 +563,8 @@ namespace HospitalManagement.Persistence.Migrations
                         {
                             Id = new Guid("2385e258-05fb-4f06-9768-71a179a1df6d"),
                             CreatedBy = "ADMIN",
-                            DateCreated = new DateTime(2024, 4, 1, 6, 44, 16, 695, DateTimeKind.Utc).AddTicks(9755),
-                            DateModified = new DateTime(2024, 4, 1, 6, 44, 16, 695, DateTimeKind.Utc).AddTicks(9755),
+                            DateCreated = new DateTime(2024, 4, 6, 14, 13, 51, 382, DateTimeKind.Utc).AddTicks(7960),
+                            DateModified = new DateTime(2024, 4, 6, 14, 13, 51, 382, DateTimeKind.Utc).AddTicks(7961),
                             DepartmentId = new Guid("f9a0b47f-8c2c-43dc-9e19-7d963f7f7d43"),
                             IsDeleted = false,
                             Title = "Social Worker"
@@ -508,6 +675,9 @@ namespace HospitalManagement.Persistence.Migrations
                     b.Property<string>("ModifiedBy")
                         .HasColumnType("text");
 
+                    b.Property<int>("VerificationStatus")
+                        .HasColumnType("integer");
+
                     b.HasKey("Id");
 
                     b.ToTable("PatientRegisterationRequests");
@@ -548,8 +718,8 @@ namespace HospitalManagement.Persistence.Migrations
                         {
                             Id = new Guid("5f10c02a-fa84-4936-837d-afa77e5bb238"),
                             CreatedBy = "ADMIN",
-                            DateCreated = new DateTime(2024, 4, 1, 6, 44, 16, 695, DateTimeKind.Utc).AddTicks(9858),
-                            DateModified = new DateTime(2024, 4, 1, 6, 44, 16, 695, DateTimeKind.Utc).AddTicks(9858),
+                            DateCreated = new DateTime(2024, 4, 6, 14, 13, 51, 382, DateTimeKind.Utc).AddTicks(8168),
+                            DateModified = new DateTime(2024, 4, 6, 14, 13, 51, 382, DateTimeKind.Utc).AddTicks(8169),
                             IsDeleted = false,
                             Name = "ADMIN"
                         },
@@ -557,8 +727,8 @@ namespace HospitalManagement.Persistence.Migrations
                         {
                             Id = new Guid("607fbfc9-b509-48b9-acd0-dcfdcda51daa"),
                             CreatedBy = "ADMIN",
-                            DateCreated = new DateTime(2024, 4, 1, 6, 44, 16, 695, DateTimeKind.Utc).AddTicks(9861),
-                            DateModified = new DateTime(2024, 4, 1, 6, 44, 16, 695, DateTimeKind.Utc).AddTicks(9861),
+                            DateCreated = new DateTime(2024, 4, 6, 14, 13, 51, 382, DateTimeKind.Utc).AddTicks(8172),
+                            DateModified = new DateTime(2024, 4, 6, 14, 13, 51, 382, DateTimeKind.Utc).AddTicks(8172),
                             IsDeleted = false,
                             Name = "SUPERADMIN"
                         },
@@ -566,8 +736,8 @@ namespace HospitalManagement.Persistence.Migrations
                         {
                             Id = new Guid("409dfa54-8822-41fc-8f93-f2a31378e436"),
                             CreatedBy = "ADMIN",
-                            DateCreated = new DateTime(2024, 4, 1, 6, 44, 16, 695, DateTimeKind.Utc).AddTicks(9863),
-                            DateModified = new DateTime(2024, 4, 1, 6, 44, 16, 695, DateTimeKind.Utc).AddTicks(9863),
+                            DateCreated = new DateTime(2024, 4, 6, 14, 13, 51, 382, DateTimeKind.Utc).AddTicks(8174),
+                            DateModified = new DateTime(2024, 4, 6, 14, 13, 51, 382, DateTimeKind.Utc).AddTicks(8174),
                             IsDeleted = false,
                             Name = "STAFF"
                         },
@@ -575,8 +745,8 @@ namespace HospitalManagement.Persistence.Migrations
                         {
                             Id = new Guid("0169dd27-a25a-46d7-91c5-5c24e0a5fd54"),
                             CreatedBy = "ADMIN",
-                            DateCreated = new DateTime(2024, 4, 1, 6, 44, 16, 695, DateTimeKind.Utc).AddTicks(9865),
-                            DateModified = new DateTime(2024, 4, 1, 6, 44, 16, 695, DateTimeKind.Utc).AddTicks(9865),
+                            DateCreated = new DateTime(2024, 4, 6, 14, 13, 51, 382, DateTimeKind.Utc).AddTicks(8175),
+                            DateModified = new DateTime(2024, 4, 6, 14, 13, 51, 382, DateTimeKind.Utc).AddTicks(8175),
                             IsDeleted = false,
                             Name = "PATIENT"
                         });
@@ -594,6 +764,10 @@ namespace HospitalManagement.Persistence.Migrations
 
                     b.Property<Guid>("AppUserId")
                         .HasColumnType("uuid");
+
+                    b.Property<string>("Country")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<string>("CreatedBy")
                         .IsRequired()
@@ -629,6 +803,10 @@ namespace HospitalManagement.Persistence.Migrations
                     b.Property<string>("ModifiedBy")
                         .HasColumnType("text");
 
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<string>("StaffID")
                         .IsRequired()
                         .HasColumnType("text");
@@ -655,6 +833,47 @@ namespace HospitalManagement.Persistence.Migrations
                         .HasForeignKey("UsersId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("HospitalManagement.Domain.Entities.Appointment", b =>
+                {
+                    b.HasOne("HospitalManagement.Domain.Entities.Doctor", "Doctor")
+                        .WithMany("Appointments")
+                        .HasForeignKey("DoctorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("HospitalManagement.Domain.Entities.Patient", "Patient")
+                        .WithMany()
+                        .HasForeignKey("PatientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Doctor");
+
+                    b.Navigation("Patient");
+                });
+
+            modelBuilder.Entity("HospitalManagement.Domain.Entities.Doctor", b =>
+                {
+                    b.HasOne("HospitalManagement.Domain.Entities.Staff", "StaffDetails")
+                        .WithMany()
+                        .HasForeignKey("StaffDetailsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("StaffDetails");
+                });
+
+            modelBuilder.Entity("HospitalManagement.Domain.Entities.DoctorJob", b =>
+                {
+                    b.HasOne("HospitalManagement.Domain.Entities.Job", "Job")
+                        .WithMany()
+                        .HasForeignKey("JobId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Job");
                 });
 
             modelBuilder.Entity("HospitalManagement.Domain.Entities.Job", b =>
@@ -701,6 +920,11 @@ namespace HospitalManagement.Persistence.Migrations
             modelBuilder.Entity("HospitalManagement.Domain.Entities.Department", b =>
                 {
                     b.Navigation("Job");
+                });
+
+            modelBuilder.Entity("HospitalManagement.Domain.Entities.Doctor", b =>
+                {
+                    b.Navigation("Appointments");
                 });
 #pragma warning restore 612, 618
         }

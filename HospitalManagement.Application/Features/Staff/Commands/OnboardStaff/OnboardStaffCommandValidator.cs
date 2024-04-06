@@ -31,6 +31,12 @@ public class OnboardStaffCommandValidator : AbstractValidator<OnboardStaffComman
 
         RuleFor(p => p.JobId).NotEmpty()
             .NotNull().WithMessage("{PropertyName must not be empty}");
+
+        RuleFor(command => command.PhoneNumber)
+            .NotEmpty().WithMessage("PhoneNumber is required.");
+
+        RuleFor(command => command.Country)
+            .NotEmpty().WithMessage("Country is required.");
     }
 
     private async Task<bool> IsUserEmailUnique(string email, CancellationToken token)

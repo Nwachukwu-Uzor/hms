@@ -11,5 +11,7 @@ public class AddStaffCommand : IRequest<StaffDto>
     public string Address { get; set; }
     public Guid AppUserId { get; set; }
     public Guid JobId { get; set; }
+    public string PhoneNumber { get; set; }
+    public string Country { get; set; }
 }
 

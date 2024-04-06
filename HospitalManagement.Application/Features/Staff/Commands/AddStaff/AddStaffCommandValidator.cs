@@ -23,6 +23,12 @@ public class AddStaffCommandValidator : AbstractValidator<AddStaffCommand>
             .NotNull().WithMessage("{PropertyName must not be empty}"); 
         
         RuleFor(p => p.JobId).NotEmpty()
-            .NotNull().WithMessage("{PropertyName must not be empty}");      
+            .NotNull().WithMessage("{PropertyName must not be empty}");
+
+        RuleFor(command => command.PhoneNumber)
+            .NotEmpty().WithMessage("PhoneNumber is required.");
+
+        RuleFor(command => command.Country)
+            .NotEmpty().WithMessage("Country is required.");
     }
 }
