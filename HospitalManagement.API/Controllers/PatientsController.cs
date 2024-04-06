@@ -2,13 +2,9 @@
 using HospitalManagement.Application.Contracts.AuthService;
 using HospitalManagement.Application.Features.Patient;
 using HospitalManagement.Application.Features.PatientRegisterationRequest;
-using HospitalManagement.Application.Features.Staff;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
-using System.Security.Claims;
 
 namespace HospitalManagement.API.Controllers;
 
@@ -68,6 +64,15 @@ public class PatientsController : ControllerBase
        
         var response = await _sender.Send(command);
         return Ok(APIResponseGenerator.GenerateSuccessResponse(response, "Profile retrieved successfully"));
+    } 
+    
+    // [Authorize]
+    [HttpGet(nameof(GetPatientsPaginated))]
+    public async Task<IActionResult> GetPatientsPaginated(int page, int pageSize=30)
+    {
+       
+        var response = await _sender.Send(new GetPatientsPaginatedQuery(page, pageSize));
+        return Ok(APIResponseGenerator.GenerateSuccessResponse(response, "Patients retrieved successfully"));
     }
 
     [HttpGet(nameof(GetPatientDetailsByPatientID) + "/{patientID}")]

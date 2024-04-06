@@ -26,7 +26,7 @@ public class CacheService : ICacheService
             options.SlidingExpiration = unusedExpiryTime;
             var jsonData = JsonSerializer.Serialize(data);
             await _cache.SetStringAsync(key, jsonData, options);
-
+            _logger.LogInformation($"Data with key: {key} added to cache");
         }
         catch (Exception ex)
         {
@@ -44,6 +44,7 @@ public class CacheService : ICacheService
                 return default(T);
             }
             var serializedData = JsonSerializer.Deserialize<T>(jsonData);
+            _logger.LogInformation($"Data with key: {key} retrieved from cache");
             return serializedData;
 
         }
@@ -59,7 +60,7 @@ public class CacheService : ICacheService
         try
         {
             await _cache.RemoveAsync(key);
-
+            _logger.LogInformation($"Data with key: {key} cleared from");
         }
         catch (Exception ex)
         {

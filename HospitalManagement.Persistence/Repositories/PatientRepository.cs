@@ -24,6 +24,12 @@ public class PatientRepository : GenericRepository<Patient>, IPatientRepository
         return response;
     }
 
+    public async Task<Patient> GetByIdWithAppUserAsync(Guid id)
+    {
+        var patient = await _context.Patients.Include(patient => patient.AppUser).FirstOrDefaultAsync();
+        return patient;
+    }
+
     public async Task<Patient> GetPatientByAppUserID(Guid appUserId)
     {
         var patient = await _context.Patients

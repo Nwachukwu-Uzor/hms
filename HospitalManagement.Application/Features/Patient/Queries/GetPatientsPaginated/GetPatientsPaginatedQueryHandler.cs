@@ -3,14 +3,8 @@ using HospitalManagement.Application.Contracts.Caching;
 using HospitalManagement.Application.Contracts.Persistence;
 using HospitalManagement.Application.Exceptions;
 using HospitalManagement.Application.Features.Patient.DTOs;
-using HospitalManagement.Application.Features.Staff;
 using HospitalManagement.Application.Models.Persistence;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HospitalManagement.Application.Features.Patient;
 
