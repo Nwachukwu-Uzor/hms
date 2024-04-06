@@ -9,6 +9,7 @@ using HospitalManagement.Application.Features.PatientRegisterationRequest;
 using HospitalManagement.Application.Models.AccessCodeService;
 using HospitalManagement.Application.Models.AuthService;
 using HospitalManagement.Application.Models.EmailService;
+using HospitalManagement.Domain.Entities;
 using MediatR;
 using Microsoft.Extensions.Options;
 
@@ -80,6 +81,15 @@ public class OnboardStaffCommandHandler : IRequestHandler<OnboardStaffCommand, s
         var response = await _unitOfWork.StaffRepository.CreateAsync(staff);
         await _unitOfWork.CompleteAsync();
         await _roleManager.AddUserToRole(appUserEntity.Id, _rolesId.StaffRoleId);
+        var isJobADoctor = await _unitOfWork.DoctorJobRepository.IsJobIdADocter(request.JobId);
+        if (isJobADoctor)
+        {
+            var doctorEntity = new Doctor
+            {
+                StaffId = staff.Id
+            };
+            await _unitOfWork.DoctorRepository.CreateAsync(doctorEntity);
+        }
         await _unitOfWork.CompleteAsync();
         var link = $"{_frontendSettings.Url}/staff/login";
         var emailBody = "<div>"

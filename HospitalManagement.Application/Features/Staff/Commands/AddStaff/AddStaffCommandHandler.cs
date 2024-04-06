@@ -2,6 +2,7 @@
 using HospitalManagement.Application.Contracts.IDGenerator;
 using HospitalManagement.Application.Contracts.Persistence;
 using HospitalManagement.Application.Exceptions;
+using HospitalManagement.Domain.Entities;
 using MediatR;
 
 namespace HospitalManagement.Application.Features.Staff;
@@ -62,8 +63,18 @@ public class CompletePatientDetailsCommandHandler : IRequestHandler<AddStaffComm
         var staffId = await _idGenerator.GenerateStaffIDNumber();
         staff.StaffID = staffId;
         var response = await _unitOfWork.StaffRepository.CreateAsync(staff);
+        var isJobADoctor = await _unitOfWork.DoctorJobRepository.IsJobIdADocter(request.JobId);
         var data = _mapper.Map<StaffDto>(response);
         await _unitOfWork.CompleteAsync();
+        if (isJobADoctor)
+        {
+            var doctorEntity = new Doctor
+            {
+                StaffId = staff.Id
+            };
+            await _unitOfWork.DoctorRepository.CreateAsync(doctorEntity);
+            await _unitOfWork.CompleteAsync();
+        }
         return data;
     }
 }
