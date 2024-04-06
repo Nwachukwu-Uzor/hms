@@ -32,16 +32,14 @@ public class GetStaffPaginatedQueryHandler : IRequestHandler<GetStaffPaginatedQu
         {
             throw new BadRequestException(nameof(Domain.Entities.Patient), validationResult);
         }
-        var cacheKey = $"GET_ALL_STAFF_PAGINATION_{request.Page}_{request.PageSize}";
+        var cacheKey = $"GET_ALL_STAFF_PAGINATED_{request.Page}_{request.PageSize}";
         var recordFromCache = await _cacheService.GetRecordAsync<PaginatedData<StaffDto>>(cacheKey);
         if (recordFromCache != null)
         {
             return recordFromCache;
         }
         var staffData = await _unitOfWork.StaffRepository.GetAllPaginated(request.Page, request.PageSize);
-        var data = _mapper.Map<List<StaffDto>>(staffData.Data);
 
-        //var response =  new PaginatedData<StaffDto>(data, request.PageSize, staffData.TotalRecords, request.Page);
         var response = _mapper.Map<PaginatedData<StaffDto>>(staffData);
         await _cacheService.SetRecordAsync(cacheKey, response, TimeSpan.FromMinutes(5));
         return response;
