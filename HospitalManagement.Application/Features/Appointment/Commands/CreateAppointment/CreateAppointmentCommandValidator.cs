@@ -17,6 +17,6 @@ public class CreateAppointmentCommandValidator : AbstractValidator<CreateAppoint
 
         RuleFor(member => member.AppointmentDate)
             .NotNull().NotEmpty()
-            .GreaterThan(DateTime.Now);
+            .GreaterThan(DateTime.Now).WithMessage("Appointment date must be greater than the current date");
     }
 }
