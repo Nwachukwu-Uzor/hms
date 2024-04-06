@@ -41,7 +41,8 @@ public class GetStaffPaginatedQueryHandler : IRequestHandler<GetStaffPaginatedQu
         var staffData = await _unitOfWork.StaffRepository.GetAllPaginated(request.Page, request.PageSize);
         var data = _mapper.Map<List<StaffDto>>(staffData.Data);
 
-        var response =  new PaginatedData<StaffDto>(data, request.PageSize, staffData.TotalRecords, request.Page);
+        //var response =  new PaginatedData<StaffDto>(data, request.PageSize, staffData.TotalRecords, request.Page);
+        var response = _mapper.Map<PaginatedData<StaffDto>>(staffData);
         await _cacheService.SetRecordAsync(cacheKey, response, TimeSpan.FromMinutes(5));
         return response;
     }
