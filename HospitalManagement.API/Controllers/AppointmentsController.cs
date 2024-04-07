@@ -22,5 +22,14 @@ namespace HospitalManagement.API.Controllers
             var response = await _sender.Send(command);
             return Ok(APIResponseGenerator.GenerateSuccessResponse(response, "Appointment created successfully"));
         }
+
+        [HttpGet(nameof(GetUpcomingAppointmentsPaginated))]
+        public async Task<IActionResult> GetUpcomingAppointmentsPaginated(int page, int pageSize)
+        {
+            var query = new GetAllUpcomingAppointmentsPaginatedQuery(page, pageSize);
+            var response = await _sender.Send(query);
+            var message = response.Data.Count > 0 ? "Appointment retrieved successfully" : "No upcoming appointments";
+            return Ok(APIResponseGenerator.GenerateSuccessResponse(response, message));
+        }
     }
 }
