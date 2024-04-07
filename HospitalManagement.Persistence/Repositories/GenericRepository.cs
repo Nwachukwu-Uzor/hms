@@ -40,7 +40,8 @@ public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity
     {
         var count = await _context.Set<T>().CountAsync(entity => !entity.IsDeleted);      
         var records = await _context.Set<T>()
-            .Where(entity => entity.IsDeleted == false)
+            .Where(entity => !entity.IsDeleted)
+            .OrderBy(entity => entity.DateCreated)
             .Skip((page - 1) * pageSize)
             .Take(pageSize).ToListAsync();
         var response = new PaginatedData<T>(records, pageSize, count, page);

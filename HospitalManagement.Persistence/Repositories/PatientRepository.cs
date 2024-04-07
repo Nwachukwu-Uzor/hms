@@ -15,7 +15,8 @@ public class PatientRepository : GenericRepository<Patient>, IPatientRepository
     {
         var count = await _context.Patients.CountAsync(entity => !entity.IsDeleted);
         var records = await _context.Patients
-            .Where(entity => entity.IsDeleted == false)
+            .Where(entity => !entity.IsDeleted)
+            .OrderBy(entity => entity.DateCreated)
             .Skip((page - 1) * pageSize)
             .Take(pageSize)
             .Include(patient => patient.AppUser)
