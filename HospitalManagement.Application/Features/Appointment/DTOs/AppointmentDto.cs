@@ -9,7 +9,7 @@ public class AppointmentDto
     public Guid DoctorId { get; set; }
     public DoctorDto Doctor { get; set; }
     public DateTime AppointmentTime { get; set; }
-    public string Description { get; set; } = string.Empty;
+    public string Description { get; set; }
     public Guid PatientId { get; set; }
     public PatientDto Patient { get; set; }
     public string Status { get; set; }

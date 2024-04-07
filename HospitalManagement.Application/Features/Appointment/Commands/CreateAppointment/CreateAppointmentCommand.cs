@@ -2,5 +2,5 @@
 
 namespace HospitalManagement.Application.Features.Appointment;
 
-public record CreateAppointmentCommand(Guid PatientId, Guid DoctorId, DateTime AppointmentTime) : IRequest<Guid>;
+public record CreateAppointmentCommand(Guid PatientId, Guid DoctorId, DateTime AppointmentTime, string Description="") : IRequest<Guid>;
 
