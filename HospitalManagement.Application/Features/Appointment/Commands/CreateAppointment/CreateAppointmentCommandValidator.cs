@@ -15,7 +15,7 @@ public class CreateAppointmentCommandValidator : AbstractValidator<CreateAppoint
             .NotEmpty()
             .IsGuid().WithMessage("Invalid doctorId format");
 
-        RuleFor(member => member.AppointmentDate)
+        RuleFor(member => member.AppointmentTime)
             .NotNull().NotEmpty()
             .GreaterThan(DateTime.Now).WithMessage("Appointment date must be greater than the current date");
     }

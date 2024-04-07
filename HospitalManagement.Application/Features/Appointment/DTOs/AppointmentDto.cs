@@ -12,5 +12,5 @@ public class AppointmentDto
     public string Description { get; set; } = string.Empty;
     public Guid PatientId { get; set; }
     public PatientDto Patient { get; set; }
-    public AppointmentStatus Status { get; set; }
+    public string Status { get; set; }
 }

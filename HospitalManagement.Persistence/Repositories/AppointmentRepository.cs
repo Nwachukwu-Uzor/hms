@@ -21,6 +21,8 @@ public class AppointmentRepository : GenericRepository<Appointment>, IAppointmen
 
         // Retrieve appointments that are for the current day and beyond with "PENDING" status
         var appointments = await _context.Appointments
+            .Include(appointment => appointment.Patient)
+            .Include(appointment => appointment.Doctor)
             .Where(a => a.AppointmentTime.Date >= currentDate && a.Status == AppointmentStatus.PENDING)
             .OrderBy(a => a.AppointmentTime)
             .Skip((page - 1) * pageSize)

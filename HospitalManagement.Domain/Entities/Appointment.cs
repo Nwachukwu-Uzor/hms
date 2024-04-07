@@ -11,5 +11,5 @@ public class Appointment : BaseEntity
     public string Description { get; set; } = string.Empty;
     public Guid PatientId { get; set; }
     public Patient Patient { get; set; }
-    public AppointmentStatus Status { get; set; }
+    public AppointmentStatus Status { get; set; } = AppointmentStatus.PENDING;
 }

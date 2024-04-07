@@ -53,7 +53,7 @@ public class CreateAppointmentCommandHandler : IRequestHandler<CreateAppointment
         var emailBody = "<div>" 
             + "<h3>Dear " + patient.FirstName + ", <h3>"
             + "<p>A new appointment has been create for you" 
-            + "on " + request.AppointmentDate.ToShortTimeString() + "</p>"
+            + "on " + request.AppointmentTime.ToShortTimeString() + "</p>"
             + "<p>If you have any question kindly call <strong>+2348064879196</strong></p>"
             + "</div>";
         var email = new Email(patient.AppUser.Email, "Appointment Created Successfully", emailBody, null);
