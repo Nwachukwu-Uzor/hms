@@ -84,7 +84,7 @@ public class OnboardStaffCommandHandler : IRequestHandler<OnboardStaffCommand, s
         var isJobADoctor = await _unitOfWork.DoctorJobRepository.IsJobIdADocter(request.JobId);
         if (isJobADoctor)
         {
-            var doctorEntity = new Doctor
+            var doctorEntity = new Domain.Entities.Doctor
             {
                 StaffId = staff.Id
             };

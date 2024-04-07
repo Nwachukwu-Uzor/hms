@@ -68,7 +68,7 @@ public class CompletePatientDetailsCommandHandler : IRequestHandler<AddStaffComm
         await _unitOfWork.CompleteAsync();
         if (isJobADoctor)
         {
-            var doctorEntity = new Doctor
+            var doctorEntity = new Domain.Entities.Doctor
             {
                 StaffId = staff.Id
             };
