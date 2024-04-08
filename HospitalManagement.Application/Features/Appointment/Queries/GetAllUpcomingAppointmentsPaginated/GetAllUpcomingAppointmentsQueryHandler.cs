@@ -38,7 +38,7 @@ public class GetAllUpcomingAppointmentsQueryHandler
         }
         var data = await _unitOfWork.AppointmentRepository.GetAllUpcomingAppointmentsPaginated(request.Page, request.PageSize);
         var response = _mapper.Map<PaginatedData<AppointmentDto>>(data);
-        await _cacheService.SetRecordAsync(cacheKey, response, TimeSpan.FromMinutes(30));
+        await _cacheService.SetRecordAsync(cacheKey, response, TimeSpan.FromMinutes(10));
         return response;
     }
 }
