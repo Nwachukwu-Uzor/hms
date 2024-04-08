@@ -91,4 +91,11 @@ public class PatientsController : ControllerBase
         var message = response == null ? "No patient record found" : "Patient record retrieved successfully.";
         return Ok(APIResponseGenerator.GenerateSuccessResponse(response, message));
     }
+
+    [HttpPost(nameof(OnboardPatient))]
+    public async Task<IActionResult> OnboardPatient(OnboardPatientCommand command)
+    {
+        var response = await _sender.Send(command);
+        return Ok(APIResponseGenerator.GenerateSuccessResponse(response));
+    }
 }

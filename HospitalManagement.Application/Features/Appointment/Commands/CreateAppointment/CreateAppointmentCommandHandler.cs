@@ -51,7 +51,7 @@ public class CreateAppointmentCommandHandler : IRequestHandler<CreateAppointment
         await _unitOfWork.AppointmentRepository.CreateAsync(appointmentEntity);
         await _unitOfWork.CompleteAsync();
         var emailBody = "<div>" 
-            + "<h3>Dear " + patient.FirstName + ", <h3>"
+            + "<h3>Dear " + patient.FirstName + ", </h3>"
             + "<p>A new appointment has been create for you" 
             + " on " + request.AppointmentTime.ToShortDateString() + " by " + request.AppointmentTime.ToShortTimeString() + "</p>"
             + "<p>If you have any question kindly call <strong>+2348064879196</strong></p>"

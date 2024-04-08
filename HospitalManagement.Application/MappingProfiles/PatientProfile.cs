@@ -13,5 +13,6 @@ public class PatientProfile : Profile
         CreateMap<CompletePatientDetailsCommand, Patient>();
         CreateMap<Patient, PatientDto>();
         CreateMap<PaginatedData<Patient>, PaginatedData<PatientDto>>();
+        CreateMap<OnboardPatientCommand, Patient>();
     }
 }

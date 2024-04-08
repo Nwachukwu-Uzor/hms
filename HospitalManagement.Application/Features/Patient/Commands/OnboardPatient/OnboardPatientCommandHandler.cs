@@ -9,13 +9,12 @@ using HospitalManagement.Application.Features.PatientRegisterationRequest;
 using HospitalManagement.Application.Models.AccessCodeService;
 using HospitalManagement.Application.Models.AuthService;
 using HospitalManagement.Application.Models.EmailService;
-using HospitalManagement.Domain.Entities;
 using MediatR;
 using Microsoft.Extensions.Options;
 
-namespace HospitalManagement.Application.Features.Staff;
+namespace HospitalManagement.Application.Features.Patient;
 
-public class OnboardStaffCommandHandler : IRequestHandler<OnboardStaffCommand, string>
+public class OnboardPatientCommandHandler : IRequestHandler<OnboardPatientCommand, string>
 {
     private readonly IRoleManager _roleManager;
     private readonly RolesId _rolesId;
@@ -25,9 +24,9 @@ public class OnboardStaffCommandHandler : IRequestHandler<OnboardStaffCommand, s
     private readonly IEmailSender _emailSender;
     private readonly IMapper _mapper;
     private readonly FrontendSettings _frontendSettings;
-    private readonly IAppLogger<OnboardStaffCommandHandler> _logger;
+    private readonly IAppLogger<OnboardPatientCommandHandler> _logger;
 
-    public OnboardStaffCommandHandler(
+    public OnboardPatientCommandHandler(
         IRoleManager roleManager,
         IOptions<RolesId> option,
         IUnitOfWork unitOfWork,
@@ -35,7 +34,7 @@ public class OnboardStaffCommandHandler : IRequestHandler<OnboardStaffCommand, s
         IIDGenerator idGenerator,
         IEmailSender emailSender,
         IMapper mapper,
-        IAppLogger<OnboardStaffCommandHandler> logger,
+        IAppLogger<OnboardPatientCommandHandler> logger,
         IOptions<FrontendSettings> frontendSettingsOptions
     )
     {
@@ -49,13 +48,13 @@ public class OnboardStaffCommandHandler : IRequestHandler<OnboardStaffCommand, s
         _logger = logger;
         _frontendSettings = frontendSettingsOptions.Value;
     }
-    public async Task<string> Handle(OnboardStaffCommand request, CancellationToken cancellationToken)
+    public async Task<string> Handle(OnboardPatientCommand request, CancellationToken cancellationToken)
     {
-        var validator = new OnboardStaffCommandValidator(_unitOfWork);
+        var validator = new OnboardPatientCommandValidator(_unitOfWork);
         var validationResult = await validator.ValidateAsync(request, cancellationToken);
         if (validationResult.Errors.Any())
         {
-            throw new BadRequestException($"{nameof(Domain.Entities.Staff)} returns validation errors", validationResult);
+            throw new BadRequestException($"{nameof(Domain.Entities.Patient)} returns validation errors", validationResult);
         }
         var password = _passwordService.GenerateRandomPassword();
         var passwordHash = _passwordService.HashPassword(password);
@@ -65,39 +64,23 @@ public class OnboardStaffCommandHandler : IRequestHandler<OnboardStaffCommand, s
             Password = passwordHash.Hash,
             Salt = passwordHash.Salt
         };
-        var job = await _unitOfWork.JobRepository.GetByIdAsync(request.JobId);
-
-        if (job == null)
-        {
-            throw new NotFoundException(nameof(Domain.Entities.Job), request.JobId);
-        }
 
         var appUserEntity = await _unitOfWork.AppUserRepository.CreateAsync(appUser);
-        var staff = _mapper.Map<Domain.Entities.Staff>(request);
-        staff.Job = job;
-        staff.AppUser = appUserEntity;
-        var staffId = await _idGenerator.GenerateStaffIDNumber();
-        staff.StaffID = staffId;
-        var response = await _unitOfWork.StaffRepository.CreateAsync(staff);
+        var patient = _mapper.Map<Domain.Entities.Patient>(request);
+        patient.AppUser = appUserEntity;
+        var patientId = await _idGenerator.GeneratePatientIDNumber();
+        patient.PatientID = patientId;
+        var response = await _unitOfWork.PatientRepository.CreateAsync(patient);
         await _unitOfWork.CompleteAsync();
-        await _roleManager.AddUserToRole(appUserEntity.Id, _rolesId.StaffRoleId);
-        var isJobADoctor = await _unitOfWork.DoctorJobRepository.IsJobIdADocter(request.JobId);
-        if (isJobADoctor)
-        {
-            var doctorEntity = new Domain.Entities.Doctor
-            {
-                StaffId = staff.Id
-            };
-            await _unitOfWork.DoctorRepository.CreateAsync(doctorEntity);
-        }
+        await _roleManager.AddUserToRole(appUserEntity.Id, _rolesId.PatientRoleId);
         await _unitOfWork.CompleteAsync();
-        var link = $"{_frontendSettings.Url}/staff/login";
+        var link = $"{_frontendSettings.Url}/login";
         var emailBody = "<div>"
             + "<h3>Hello " + request.FirstName + " " + request.LastName + "</h3>"
-            + "<p>Welcome to clinic one. You have been successfully onboarded on our staff platform. <br />" +
-            "Your staff Id is " + staffId + ". Kindly, click on the link below to login.</p>"
+            + "<p>Welcome to clinic one. You have been successfully onboarded on our patient platform. <br />" +
+            "Your patient Id is " + patientId + ". Kindly, click on the link below to login.</p>"
             + "<a href=" + link + ">Login </a><br/>"
-            + "<p>Your login credentials are <br />" 
+            + "<p>Your login credentials are <br />"
             + "Email: " + request.Email + "<br /> Password: " + password + "</p>"
             + "<p>Your are advised to change your password once you login.</p>"
             + "<p>If you have any difficulty clicking the link, copy and paste the link below in your browser</p>"
@@ -114,6 +97,6 @@ public class OnboardStaffCommandHandler : IRequestHandler<OnboardStaffCommand, s
                 request
             );
         }
-        return staffId;
+        return patientId;
     }
 }
