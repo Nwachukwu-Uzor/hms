@@ -39,5 +39,13 @@ namespace HospitalManagement.API.Controllers
             var message = response.Data.Count > 0 ? "Appointment retrieved successfully" : "No appointments found";
             return Ok(APIResponseGenerator.GenerateSuccessResponse(response, message));
         }
+
+        [HttpPost(nameof(GetAppointmentsByPatientAppUserIdPaginated))]
+        public async Task<IActionResult> GetAppointmentsByPatientAppUserIdPaginated(GetAppointmentsByPatientAppUserIdPaginatedQuery query)
+        {
+            var response = await _sender.Send(query);
+            var message = response.Data.Count > 0 ? "Appointment retrieved successfully" : "No appointments found";
+            return Ok(APIResponseGenerator.GenerateSuccessResponse(response, message));
+        }
     }
 }

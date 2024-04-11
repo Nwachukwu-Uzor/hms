@@ -81,4 +81,55 @@ public class AppointmentRepository : GenericRepository<Appointment>, IAppointmen
         var paginatedResponse = new PaginatedData<Appointment>(data, pageSize, count, page);
         return paginatedResponse;
     }
+
+    public async Task<PaginatedData<Appointment>> GetAppointmentsByPatientIdPaginated(
+       Guid patientId,
+       int page,
+       int pageSize,
+       AppointmentStatus status,
+       DateTime startDate,
+       DateTime endDate
+   )
+    {
+        var isSameDay = startDate.Date == endDate.Date;
+
+        int count;
+
+        if (isSameDay)
+        {
+            count = await _context.Appointments.CountAsync(app =>
+                app.AppointmentTime.Date >= startDate.AddDays(-1)
+                && app.Status == status
+                && app.Patient.AppUser.Id == patientId
+            );
+        }
+        else
+        {
+            count = await _context.Appointments.CountAsync(app =>
+                app.AppointmentTime.Date >= startDate.AddDays(-1)
+                && app.AppointmentTime.Date < endDate.AddDays(1)
+                && app.Status == status
+                && app.Patient.AppUser.Id == patientId
+           );
+        }
+        var appointments = _context.Appointments.Where(app => app.Patient.AppUser.Id == patientId).Include(app => app.Patient).Include(app => app.Doctor.Staff);
+        if (isSameDay)
+        {
+            appointments.Where(app =>
+                app.AppointmentTime.Date >= startDate.AddDays(-1)
+                && app.Status == status
+            );
+        }
+        else
+        {
+            appointments.Where(app =>
+                app.AppointmentTime.Date >= startDate.AddDays(-1)
+                && app.AppointmentTime.Date < endDate.AddDays(1)
+                && app.Status == status
+           );
+        }
+        var data = await appointments.ToListAsync();
+        var paginatedResponse = new PaginatedData<Appointment>(data, pageSize, count, page);
+        return paginatedResponse;
+    }
 }

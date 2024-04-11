@@ -38,9 +38,9 @@ public class LoginPatientUserCommandHandler : IRequestHandler<LoginPatientUserCo
         }
 
         // Check if the user is an admin user
-        var isUserAnAdmin = user.Roles.Any(role => role.Id == _rolesId.PatientRoleId);
+        var isUserAPatient = user.Roles.Any(role => role.Id == _rolesId.PatientRoleId);
 
-        if (!isUserAnAdmin)
+        if (!isUserAPatient)
         {
             throw new BadRequestException("Invalid user credentials");
         }
